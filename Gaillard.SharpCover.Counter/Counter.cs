@@ -24,7 +24,7 @@ namespace Gaillard.SharpCover
         public static void Count(string pathPrefix, int index)
         {
             if (path == null) {
-                path = pathPrefix + "|" + Process.GetCurrentProcess().Id + "|" + Thread.CurrentThread.ManagedThreadId;
+				path = pathPrefix + "|" + Process.GetCurrentProcess().Id + "|" + Thread.CurrentThread.ManagedThreadId;
                 indexes = new HashSet<int>();
                 writer = new BinaryWriter(File.Open(path, FileMode.CreateNew));
             }

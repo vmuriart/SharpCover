@@ -50,10 +50,15 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Counter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Gaillard.SharpCover.Counter\Gaillard.SharpCover.Counter.csproj">
+      <Project>{10E71A1F-A983-4192-943E-10567C9EDA65}</Project>
+      <Name>Gaillard.SharpCover.Counter</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

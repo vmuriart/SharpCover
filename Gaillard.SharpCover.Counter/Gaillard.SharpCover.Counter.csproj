@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5B7D8898-C236-4915-A471-AE603E67374A}</ProjectGuid>
+    <ProjectGuid>{10E71A1F-A983-4192-943E-10567C9EDA65}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Galliard.SharpCover.Tests</RootNamespace>
-    <AssemblyName>Galliard.SharpCover.Tests</AssemblyName>
+    <RootNamespace>Gaillard.SharpCover.Counter</RootNamespace>
+    <AssemblyName>Gaillard.SharpCover.Counter</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -29,25 +29,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
-    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Counter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ProgramTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Gaillard.SharpCover\Gaillard.SharpCover.csproj">
-      <Project>{40FA0E26-22A7-4CF1-B659-CF65AA69EC7D}</Project>
-      <Name>Gaillard.SharpCover</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Gaillard.SharpCover.Counter\Gaillard.SharpCover.Counter.csproj">
-      <Project>{10E71A1F-A983-4192-943E-10567C9EDA65}</Project>
-      <Name>Gaillard.SharpCover.Counter</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>
