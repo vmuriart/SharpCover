@@ -61,6 +61,23 @@ namespace Gaillard.SharpCover.Tests
             Assert.IsTrue(File.ReadLines(Program.RESULTS_FILENAME).Any());
         }
 
+		[Test]
+		public void ConfigInFolder()
+		{
+			Directory.SetCurrentDirectory(testTargetDirectory); 
+			Directory.CreateDirectory("temp");
+			var config =
+				@"{""assemblies"": [""Moved.exe""], ""typeInclude"": "".*Tests.*Event.*""}";
+			File.WriteAllText(Path.Combine("temp", "testConfig.json"), config);
+			File.Copy(testTargetExe, Path.Combine("temp", "Moved.exe"));  
+
+			Assert.AreEqual(0, Program.Main(new []{ "instrument", "testConfig.json" }));
+			Process.Start(Path.Combine("temp", "Moved.exe")).WaitForExit();
+			Assert.AreEqual(0, Program.Main(new []{ "check" }));
+
+			Assert.IsTrue(File.ReadLines(Program.RESULTS_FILENAME).Any());
+		}
+
         [Test]
         public void Covered()
         {
