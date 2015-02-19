@@ -12,14 +12,16 @@ namespace Gaillard.SharpCover.Tests
     [TestFixture]
     public sealed class ProgramTests
     {
-        private string testTargetExePath;
+        private string testTargetDirectory;
+		private string testTargetExe;
         private bool onDotNet;
 
         [SetUp]
         public void TestSetup()
         {
             onDotNet = Type.GetType("Mono.Runtime") == null;
-			testTargetExePath = Path.Combine("..", "..", "..", "Gaillard.SharpCover.Tests.TestTarget", "bin", "Debug", "Gaillard.SharpCover.Tests.TestTarget.exe");
+			testTargetDirectory = Path.Combine("..", "..", "..", "Gaillard.SharpCover.Tests.TestTarget", "bin", "Debug");
+			testTargetExe = "TestTarget.exe";
 			string buildCommand;
 			if (onDotNet) {
                 buildCommand = @"C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe";
@@ -48,14 +50,12 @@ namespace Gaillard.SharpCover.Tests
         public void NoBody()
         {
             var config =
-				@"{""assemblies"": [""../../../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/TestTarget.exe""], ""typeInclude"": "".*Tests.*Event.*""}";
-
-            File.WriteAllText("testConfig.json", config);
+				@"{""assemblies"": [""TestTarget.exe""], ""typeInclude"": "".*Tests.*Event.*""}";
+			File.WriteAllText("testConfig.json", config);
+			Directory.SetCurrentDirectory(testTargetDirectory);   
 
             Assert.AreEqual(0, Program.Main(new []{ "instrument", "testConfig.json" }));
-
-            Process.Start(testTargetExePath).WaitForExit();
-
+            Process.Start(testTargetExe).WaitForExit();
             Assert.AreEqual(0, Program.Main(new []{ "check" }));
 
             Assert.IsTrue(File.ReadLines(Program.RESULTS_FILENAME).Any());
@@ -65,17 +65,14 @@ namespace Gaillard.SharpCover.Tests
         public void Covered()
         {
             var config =
-                @"{""assemblies"": [""bin/Debug/TestTarget.exe""], ""typeInclude"": "".*TestTarget"", ""methodInclude"": "".*Covered.*""}";
-
+				@"{""assemblies"": [""TestTarget.exe""], ""typeInclude"": "".*TestTarget"", ""methodInclude"": "".*Covered.*""}";
             File.WriteAllText("testConfig.json", config);
+			Directory.SetCurrentDirectory(testTargetDirectory); 
 
             //write some extraneous hit files to make sure they dont affect run
             File.WriteAllText(Program.HITS_FILENAME_PREFIX, "doesnt matter");
-
             Assert.AreEqual(0, Program.Main(new []{ "instrument", "testConfig.json" }));
-
-            Process.Start(testTargetExePath).WaitForExit();
-
+			Process.Start(testTargetExe).WaitForExit();
             Assert.AreEqual(0, Program.Main(new []{ "check" }));
 
             Assert.IsTrue(File.ReadLines(Program.RESULTS_FILENAME).Any());
@@ -84,12 +81,11 @@ namespace Gaillard.SharpCover.Tests
         [Test]
         public void UncoveredIf()
         {
-			var config = @"{""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/TestTarget.exe""], ""methodInclude"": "".*UncoveredIf.*""}";
+			var config = @"{""assemblies"": [""TestTarget.exe""], ""methodInclude"": "".*UncoveredIf.*""}";
+			Directory.SetCurrentDirectory(testTargetDirectory); 
 
             Assert.AreEqual(0, Program.Main(new []{ "instrument", config }));
-
-            Process.Start(testTargetExePath).WaitForExit();
-
+			Process.Start(testTargetExe).WaitForExit();
             Assert.AreEqual(1, Program.Main(new []{ "check" }));
 
             var missCount = File.ReadLines(Program.RESULTS_FILENAME).Where(l => l.StartsWith(Program.MISS_PREFIX)).Count();
@@ -103,11 +99,12 @@ namespace Gaillard.SharpCover.Tests
         [Test]
         public void UncoveredLeave()
         {
-			var config = @"{""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/TestTarget.exe""], ""methodInclude"": "".*UncoveredLeave.*""}";
+			var config = @"{""assemblies"": [""TestTarget.exe""], ""methodInclude"": "".*UncoveredLeave.*""}";
+			Directory.SetCurrentDirectory(testTargetDirectory); 
 
             Assert.AreEqual(0, Program.Main(new []{ "instrument", config }));
 
-            Process.Start(testTargetExePath).WaitForExit();
+			Process.Start(testTargetExe).WaitForExit();
 
             Assert.AreEqual(1, Program.Main(new []{ "check" }));
 
@@ -122,12 +119,11 @@ namespace Gaillard.SharpCover.Tests
         [Test]
         public void Nested()
         {
-			var config = @"{""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/TestTarget.exe""], ""typeInclude"": "".*Nested""}";
+			var config = @"{""assemblies"": [""TestTarget.exe""], ""typeInclude"": "".*Nested""}";
+			Directory.SetCurrentDirectory(testTargetDirectory); 
 
             Assert.AreEqual(0, Program.Main(new []{ "instrument", config }));
-
-            Process.Start(testTargetExePath).WaitForExit();
-
+			Process.Start(testTargetExe).WaitForExit();
             Assert.AreEqual(0, Program.Main(new []{ "check" }));
 
             Assert.IsTrue(File.ReadLines(Program.RESULTS_FILENAME).Any());
@@ -138,7 +134,7 @@ namespace Gaillard.SharpCover.Tests
         {
             var config =
 @"{
-    ""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/TestTarget.exe""],
+    ""assemblies"": [""TestTarget.exe""],
     ""typeInclude"": "".*TestTarget"",
     ""methodInclude"": "".*LineExcludes.*"",
     ""methodBodyExcludes"": [
@@ -148,11 +144,10 @@ namespace Gaillard.SharpCover.Tests
         }
     ]
 }";
+			Directory.SetCurrentDirectory(testTargetDirectory); 
 
             Assert.AreEqual(0, Program.Main(new []{ "instrument", config }));
-
-            Process.Start(testTargetExePath).WaitForExit();
-
+			Process.Start(testTargetExe).WaitForExit();
             Assert.AreEqual(0, Program.Main(new []{ "check" }));
 
             Assert.IsTrue(File.ReadLines(Program.RESULTS_FILENAME).Any());
@@ -169,7 +164,7 @@ namespace Gaillard.SharpCover.Tests
 
             var config =
 string.Format(@"{{
-    ""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/TestTarget.exe""],
+    ""assemblies"": [""TestTarget.exe""],
     ""typeInclude"": "".*TestTarget"",
     ""methodInclude"": "".*OffsetExcludes.*"",
     ""methodBodyExcludes"": [
@@ -179,11 +174,10 @@ string.Format(@"{{
         }}
     ]
 }}", offsets);
+			Directory.SetCurrentDirectory(testTargetDirectory); 
 
             Assert.AreEqual(0, Program.Main(new []{ "instrument", config }));
-
-            Process.Start(testTargetExePath).WaitForExit();
-
+			Process.Start(testTargetExe).WaitForExit();
             Assert.AreEqual(0, Program.Main(new []{ "check" }));
 
             Assert.IsTrue(File.ReadLines(Program.RESULTS_FILENAME).Any());
@@ -193,12 +187,11 @@ string.Format(@"{{
         [Test]
         public void Constrained()
         {
-			var config = @"{""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/TestTarget.exe""], ""typeInclude"": "".*Constrained""}";
+			var config = @"{""assemblies"": [""TestTarget.exe""], ""typeInclude"": "".*Constrained""}";
+			Directory.SetCurrentDirectory(testTargetDirectory); 
 
             Assert.AreEqual(0, Program.Main(new []{ "instrument", config }));
-
-            Process.Start(testTargetExePath).WaitForExit();
-
+			Process.Start(testTargetExe).WaitForExit();
             Assert.AreEqual(0, Program.Main(new []{ "check" }));
 
             Assert.IsTrue(File.ReadLines(Program.RESULTS_FILENAME).Any());
