@@ -19,7 +19,7 @@ namespace Gaillard.SharpCover.Tests
         public void TestSetup()
         {
             onDotNet = Type.GetType("Mono.Runtime") == null;
-			testTargetExePath = Path.Combine("..", "Gaillard.SharpCover.Tests.TestTarget", "bin", "Debug", "Gaillard.SharpCover.Tests.TestTarget.exe");
+			testTargetExePath = Path.Combine("..", "..", "..", "Gaillard.SharpCover.Tests.TestTarget", "bin", "Debug", "Gaillard.SharpCover.Tests.TestTarget.exe");
 			string buildCommand;
 			if (onDotNet) {
                 buildCommand = @"C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe";
@@ -48,7 +48,7 @@ namespace Gaillard.SharpCover.Tests
         public void NoBody()
         {
             var config =
-                @"{""assemblies"": [""bin/Debug/TestTarget.exe""], ""typeInclude"": "".*Tests.*Event.*""}";
+				@"{""assemblies"": [""../../../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/TestTarget.exe""], ""typeInclude"": "".*Tests.*Event.*""}";
 
             File.WriteAllText("testConfig.json", config);
 
@@ -84,7 +84,7 @@ namespace Gaillard.SharpCover.Tests
         [Test]
         public void UncoveredIf()
         {
-			var config = @"{""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/Gaillard.SharpCover.Tests.TestTarget.exe""], ""methodInclude"": "".*UncoveredIf.*""}";
+			var config = @"{""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/TestTarget.exe""], ""methodInclude"": "".*UncoveredIf.*""}";
 
             Assert.AreEqual(0, Program.Main(new []{ "instrument", config }));
 
@@ -103,7 +103,7 @@ namespace Gaillard.SharpCover.Tests
         [Test]
         public void UncoveredLeave()
         {
-			var config = @"{""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/Gaillard.SharpCover.Tests.TestTarget.exe""], ""methodInclude"": "".*UncoveredLeave.*""}";
+			var config = @"{""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/TestTarget.exe""], ""methodInclude"": "".*UncoveredLeave.*""}";
 
             Assert.AreEqual(0, Program.Main(new []{ "instrument", config }));
 
@@ -122,7 +122,7 @@ namespace Gaillard.SharpCover.Tests
         [Test]
         public void Nested()
         {
-			var config = @"{""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/Gaillard.SharpCover.Tests.TestTarget.exe""], ""typeInclude"": "".*Nested""}";
+			var config = @"{""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/TestTarget.exe""], ""typeInclude"": "".*Nested""}";
 
             Assert.AreEqual(0, Program.Main(new []{ "instrument", config }));
 
@@ -138,7 +138,7 @@ namespace Gaillard.SharpCover.Tests
         {
             var config =
 @"{
-    ""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/Gaillard.SharpCover.Tests.TestTarget.exe""],
+    ""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/TestTarget.exe""],
     ""typeInclude"": "".*TestTarget"",
     ""methodInclude"": "".*LineExcludes.*"",
     ""methodBodyExcludes"": [
@@ -169,7 +169,7 @@ namespace Gaillard.SharpCover.Tests
 
             var config =
 string.Format(@"{{
-    ""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/Gaillard.SharpCover.Tests.TestTarget.exe""],
+    ""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/TestTarget.exe""],
     ""typeInclude"": "".*TestTarget"",
     ""methodInclude"": "".*OffsetExcludes.*"",
     ""methodBodyExcludes"": [
@@ -193,7 +193,7 @@ string.Format(@"{{
         [Test]
         public void Constrained()
         {
-			var config = @"{""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/Gaillard.SharpCover.Tests.TestTarget.exe""], ""typeInclude"": "".*Constrained""}";
+			var config = @"{""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/TestTarget.exe""], ""typeInclude"": "".*Constrained""}";
 
             Assert.AreEqual(0, Program.Main(new []{ "instrument", config }));
 
