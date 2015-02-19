@@ -14,6 +14,8 @@ namespace Gaillard.SharpCover.Tests
     {
         private string testTargetDirectory;
 		private string testTargetExe;
+		private string testTargetMdb;
+		private string testTargetPdb;
         private bool onDotNet;
 
         [SetUp]
@@ -22,6 +24,8 @@ namespace Gaillard.SharpCover.Tests
             onDotNet = Type.GetType("Mono.Runtime") == null;
 			testTargetDirectory = Path.Combine("..", "..", "..", "Gaillard.SharpCover.Tests.TestTarget", "bin", "Debug");
 			testTargetExe = "TestTarget.exe";
+			testTargetMdb = "TestTarget.exe.mdb";
+			testTargetPdb = "TestTarget.exe.pdb";
 			string buildCommand;
 			if (onDotNet) {
                 buildCommand = @"C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe";
@@ -65,15 +69,29 @@ namespace Gaillard.SharpCover.Tests
 		public void ConfigInFolder()
 		{
 			Directory.SetCurrentDirectory(testTargetDirectory); 
-			Directory.CreateDirectory("temp");
+			if (!Directory.Exists("temp"))
+				Directory.CreateDirectory("temp");
+			if (File.Exists(Path.Combine("temp", "Moved.exe")))
+				File.Delete(Path.Combine("temp", "Moved.exe"));
+			if (File.Exists(Path.Combine("temp", "Moved.exe.mdb")))
+				File.Delete(Path.Combine("temp", "Moved.exe.mdb"));
+			if (File.Exists(Path.Combine("temp", "Moved.exe.pdb")))
+				File.Delete(Path.Combine("temp", "Moved.exe.pdb"));
+			if (File.Exists(Path.Combine("temp", "testConfig.json")))
+				File.Delete(Path.Combine("temp", "testConfig.json"));
+
 			var config =
 				@"{""assemblies"": [""Moved.exe""], ""typeInclude"": "".*Tests.*Event.*""}";
 			File.WriteAllText(Path.Combine("temp", "testConfig.json"), config);
-			File.Copy(testTargetExe, Path.Combine("temp", "Moved.exe"));  
+			File.Copy(testTargetExe, Path.Combine("temp", "Moved.exe")); 
+			if (File.Exists(testTargetMdb))
+				File.Copy(testTargetMdb, Path.Combine("temp", "Moved.exe.mdb")); 
+			if (File.Exists(testTargetPdb))
+				File.Copy(testTargetPdb, Path.Combine("temp", "Moved.exe.pdb"));
 
-			Assert.AreEqual(0, Program.Main(new []{ "instrument", "testConfig.json" }));
+			Assert.AreEqual(0, Program.Main(new []{ "instrument", Path.Combine("temp", "testConfig.json") }));
 			Process.Start(Path.Combine("temp", "Moved.exe")).WaitForExit();
-			Assert.AreEqual(0, Program.Main(new []{ "check" }));
+			Assert.AreEqual(0, Program.Main(new []{ "check", }));
 
 			Assert.IsTrue(File.ReadLines(Program.RESULTS_FILENAME).Any());
 		}

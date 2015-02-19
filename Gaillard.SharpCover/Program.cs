@@ -23,6 +23,7 @@ namespace Gaillard.SharpCover
         //immutable
         private sealed class InstrumentConfig
         {
+			public readonly string JsonPath = "";
             public readonly IEnumerable<string> AssemblyPaths;
             public readonly string TypeInclude,
                                    TypeExclude,
@@ -34,8 +35,10 @@ namespace Gaillard.SharpCover
 
             public InstrumentConfig(string json)
             {
-                if (File.Exists(json))
+                if (File.Exists(json)) {
+					JsonPath = json;
                     json = File.ReadAllText(json);
+				}
 
                 var config = JObject.Parse(json);
 
@@ -196,6 +199,11 @@ namespace Gaillard.SharpCover
 
         private static void Instrument(string assemblyPath, InstrumentConfig config, TextWriter writer, ref int instrumentIndex)
         {
+			if (!string.IsNullOrWhiteSpace(config.JsonPath)) {
+				var configPath = Path.GetDirectoryName(config.JsonPath);
+				assemblyPath = Path.Combine(configPath, assemblyPath);
+			}
+
             //Mono.Cecil.[Mdb|Pdb].dll must be alongsize this exe to include sequence points from ReadSymbols
             var assembly = AssemblyDefinition.ReadAssembly(assemblyPath, new ReaderParameters { ReadSymbols = true });
             var countReference = assembly.MainModule.Import(countMethodInfo);
