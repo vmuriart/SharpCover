@@ -5,8 +5,8 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProjectGuid>{40FA0E26-22A7-4CF1-B659-CF65AA69EC7D}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Galliard.SharpCover.Program</RootNamespace>
-    <AssemblyName>Galliard.SharpCover.Program</AssemblyName>
+    <RootNamespace>Gaillard.SharpCover.Program</RootNamespace>
+    <AssemblyName>SharpCover</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
