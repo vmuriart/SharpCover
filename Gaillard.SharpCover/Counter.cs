@@ -8,8 +8,6 @@ using System.Reflection;
 using System.Threading;
 using System.Diagnostics;
 
-[assembly: AssemblyVersion("1.0.2.*")]
-
 namespace Gaillard.SharpCover
 {
     public static class Counter

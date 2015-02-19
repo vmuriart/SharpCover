@@ -12,8 +12,6 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
 
-[assembly: AssemblyVersion("1.0.2.*")]
-
 namespace Gaillard.SharpCover
 {
     public static class Program
