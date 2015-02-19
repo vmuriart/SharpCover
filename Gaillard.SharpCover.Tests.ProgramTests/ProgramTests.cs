@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2013 Dominion Enterprises
+﻿// Copyright (c) 2013 Dominion Enterprises, 2015 Oliver Brown
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 using System;
@@ -19,18 +19,28 @@ namespace Gaillard.SharpCover.Tests
         public void TestSetup()
         {
             onDotNet = Type.GetType("Mono.Runtime") == null;
-
-            string buildCommand;
-            if (onDotNet) {
+			testTargetExePath = Path.Combine("..", "Gaillard.SharpCover.Tests.TestTarget", "bin", "Debug", "Gaillard.SharpCover.Tests.TestTarget.exe");
+			string buildCommand;
+			if (onDotNet) {
                 buildCommand = @"C:\Windows\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe";
-                testTargetExePath = @"bin\Debug\TestTarget.exe";
             } else {
-                buildCommand = "/usr/bin/xbuild";
-                testTargetExePath = "bin/Debug/TestTarget.exe";
+                buildCommand = "xbuild";
             }
+			string testTargetProjectPath = Path.Combine("..", "..", "..", "Gaillard.SharpCover.Tests.TestTarget", "Gaillard.SharpCover.Tests.TestTarget.csproj");
 
-            var process = Process.Start(buildCommand, "TestTarget.csproj");
-            process.WaitForExit();
+			var process = new Process();
+			//process.StartInfo.FileName = "pwd";
+			process.StartInfo.FileName = buildCommand;
+			process.StartInfo.Arguments = testTargetProjectPath;
+			process.StartInfo.RedirectStandardError = true;
+			process.StartInfo.RedirectStandardOutput = true;
+			process.StartInfo.UseShellExecute = false;
+			process.Start();
+			var error = process.StandardError.ReadToEnd();
+			var output = process.StandardOutput.ReadToEnd();
+			process.WaitForExit();
+			Assert.IsEmpty(error);
+			Assert.IsTrue(!output.Contains("error"));
             Assert.AreEqual(0, process.ExitCode);
         }
 
@@ -74,7 +84,7 @@ namespace Gaillard.SharpCover.Tests
         [Test]
         public void UncoveredIf()
         {
-            var config = @"{""assemblies"": [""bin/Debug/TestTarget.exe""], ""methodInclude"": "".*UncoveredIf.*""}";
+			var config = @"{""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/Gaillard.SharpCover.Tests.TestTarget.exe""], ""methodInclude"": "".*UncoveredIf.*""}";
 
             Assert.AreEqual(0, Program.Main(new []{ "instrument", config }));
 
@@ -93,7 +103,7 @@ namespace Gaillard.SharpCover.Tests
         [Test]
         public void UncoveredLeave()
         {
-            var config = @"{""assemblies"": [""bin/Debug/TestTarget.exe""], ""methodInclude"": "".*UncoveredLeave.*""}";
+			var config = @"{""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/Gaillard.SharpCover.Tests.TestTarget.exe""], ""methodInclude"": "".*UncoveredLeave.*""}";
 
             Assert.AreEqual(0, Program.Main(new []{ "instrument", config }));
 
@@ -112,7 +122,7 @@ namespace Gaillard.SharpCover.Tests
         [Test]
         public void Nested()
         {
-            var config = @"{""assemblies"": [""bin/Debug/TestTarget.exe""], ""typeInclude"": "".*Nested""}";
+			var config = @"{""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/Gaillard.SharpCover.Tests.TestTarget.exe""], ""typeInclude"": "".*Nested""}";
 
             Assert.AreEqual(0, Program.Main(new []{ "instrument", config }));
 
@@ -128,7 +138,7 @@ namespace Gaillard.SharpCover.Tests
         {
             var config =
 @"{
-    ""assemblies"": [""bin/Debug/TestTarget.exe""],
+    ""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/Gaillard.SharpCover.Tests.TestTarget.exe""],
     ""typeInclude"": "".*TestTarget"",
     ""methodInclude"": "".*LineExcludes.*"",
     ""methodBodyExcludes"": [
@@ -159,7 +169,7 @@ namespace Gaillard.SharpCover.Tests
 
             var config =
 string.Format(@"{{
-    ""assemblies"": [""bin/Debug/TestTarget.exe""],
+    ""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/Gaillard.SharpCover.Tests.TestTarget.exe""],
     ""typeInclude"": "".*TestTarget"",
     ""methodInclude"": "".*OffsetExcludes.*"",
     ""methodBodyExcludes"": [
@@ -183,7 +193,7 @@ string.Format(@"{{
         [Test]
         public void Constrained()
         {
-            var config = @"{""assemblies"": [""bin/Debug/TestTarget.exe""], ""typeInclude"": "".*Constrained""}";
+			var config = @"{""assemblies"": [""../Gaillard.SharpCover.Tests.TestTarget/bin/Debug/Gaillard.SharpCover.Tests.TestTarget.exe""], ""typeInclude"": "".*Constrained""}";
 
             Assert.AreEqual(0, Program.Main(new []{ "instrument", config }));
 
