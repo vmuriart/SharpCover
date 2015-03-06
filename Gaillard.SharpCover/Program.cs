@@ -16,7 +16,10 @@ namespace Gaillard.SharpCover
 {
     public static class Program
     {
-        public const string RESULTS_FILENAME = "coverageResults.txt", MISS_PREFIX = "MISS ! ", HITS_FILENAME_PREFIX = "coverageHits";
+		public const string RESULTS_FILENAME = "coverageResults.txt"; 
+		public const string MISS_PREFIX = "MISS|";
+		public const string HIT_PREFIX = "HIT|"; 
+		public const string HITS_FILENAME_PREFIX = "coverageHits";
         private const string KNOWNS_FILENAME = "coverageKnowns";
         private static readonly MethodInfo countMethodInfo = typeof(Counter).GetMethod("Count");
 
@@ -96,11 +99,7 @@ namespace Gaillard.SharpCover
             if (instruction.SequencePoint != null)
                 lineNum = instruction.SequencePoint.StartLine;
 
-            var line = string.Join(", ",
-                                   "Method: " + method.FullName,
-                                   "Line: " + lineNum,
-                                   "Offset: " + instruction.Offset,
-                                   "Instruction: " + instruction);
+            var line = string.Join("|", method.FullName, lineNum, instruction.Offset, instruction);
 
             writer.WriteLine(line);
 
@@ -234,10 +233,12 @@ namespace Gaillard.SharpCover
             var missCount = 0;
             var knownIndex = 0;
 
-            using (var resultsWriter = new StreamWriter(RESULTS_FILENAME)) {//overwrites
-                foreach (var knownLine in File.ReadLines(KNOWNS_FILENAME)) {
+			using (var resultsWriter = new StreamWriter(RESULTS_FILENAME)) //overwrites
+			{
+                foreach (var knownLine in File.ReadLines(KNOWNS_FILENAME))
+				{
                     if (hits.Contains(knownIndex))
-                        resultsWriter.WriteLine(knownLine);
+                        resultsWriter.WriteLine(HIT_PREFIX + knownLine);
                     else {
                         resultsWriter.WriteLine(MISS_PREFIX + knownLine);
                         ++missCount;
