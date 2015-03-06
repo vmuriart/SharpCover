@@ -56,17 +56,17 @@ namespace Gaillard.SharpCover
 		{
 			if (!Data.ContainsKey(className))
 			{
-				Data[className] = new ClassData() { Name = className };
+				Data[className] = new ClassData();
 			}
 			var classData = Data[className];
 			if (!classData.Methods.ContainsKey(methodName))
 			{
-				classData.Methods[methodName] = new MethodData() { Name = methodName };
+				classData.Methods[methodName] = new MethodData();
 			}
 			var methodData = classData.Methods[methodName];
 			if (!methodData.Lines.ContainsKey(lineNum))
 			{
-				methodData.Lines[lineNum] = new LineData() { LineNumber = lineNum };
+				methodData.Lines[lineNum] = new LineData();
 			}
 			var lineData = methodData.Lines[lineNum];
 			lineData.Instructions.Add(new InstructionData() { Hit = hit });
@@ -140,7 +140,6 @@ namespace Gaillard.SharpCover
 
 	public class ClassData
 	{
-		public string Name;
 		public int Total;
 		public int Hit;
 		public Dictionary<string, MethodData> Methods = new Dictionary<string, MethodData>();
@@ -148,7 +147,6 @@ namespace Gaillard.SharpCover
 
 	public class MethodData
 	{
-		public string Name;
 		public int Total;
 		public int Hit;
 		public Dictionary<int, LineData> Lines = new Dictionary<int, LineData>();
@@ -156,7 +154,6 @@ namespace Gaillard.SharpCover
 
 	public class LineData
 	{
-		public int LineNumber;
 		public int Total;
 		public int Hit;
 		public List<InstructionData> Instructions = new List<InstructionData>();
