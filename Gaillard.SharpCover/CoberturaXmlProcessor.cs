@@ -139,9 +139,9 @@ namespace Gaillard.SharpCover
 			writer.WriteEndElement();
 			writer.Close();
 
-			var doc = XDocument.Load(fileName);
-			var formatted = doc.ToString();
-			File.WriteAllText(fileName, formatted);
+			//var doc = XDocument.Load(fileName);
+			//var formatted = doc.ToString();
+			//File.WriteAllText(fileName, formatted);
 		}
 	}
 
