@@ -61,16 +61,23 @@ namespace Gaillard.SharpCover
 			var classData = Data[className];
 			if (!classData.Methods.ContainsKey(methodName))
 			{
-				classData.Methods[methodName] = new MethodData();
+				classData.Methods[methodName] = new MethodData() { Name = methodName };
 			}
 			var methodData = classData.Methods[methodName];
-			methodData.Lines.Add(new LineData() { LineNumber = lineNum, Hit = hit });
+			if (!methodData.Lines.ContainsKey(lineNum))
+			{
+				methodData.Lines[lineNum] = new LineData() { LineNumber = lineNum };
+			}
+			var lineData = methodData.Lines[lineNum];
+			lineData.Instructions.Add(new InstructionData() { Hit = hit });
 
+			lineData.Total++;
 			methodData.Total++;
 			classData.Total++;
 
 			if (hit)
 			{
+				lineData.Hit++;
 				methodData.Hit++;
 				classData.Hit++;
 			}
@@ -98,11 +105,21 @@ namespace Gaillard.SharpCover
 				{
 					writer.WriteStartElement("method");
 					writer.WriteAttributeString("name", methodData.Key);
-					foreach (var lineData in methodData.Value.Lines)
+					foreach (var lineData in methodData.Value.Lines.OrderBy(x => x.Key))
 					{
 						writer.WriteStartElement("line");
-						writer.WriteAttributeString("number", lineData.LineNumber.ToString());
-						writer.WriteAttributeString("hits", lineData.Hit ? "1" : "0");
+						writer.WriteAttributeString("number", lineData.Key.ToString());
+						writer.WriteAttributeString("hits", lineData.Value.Hit > 0 ? "1" : "0");
+						if (lineData.Value.Instructions.Count > 1)
+						{
+							var conditionCoverage = string.Format("{0}% ({1}/{2})", (int)(100 * lineData.Value.Hit / lineData.Value.Total), lineData.Value.Hit, lineData.Value.Total);
+							writer.WriteAttributeString("branch", "true");
+							writer.WriteAttributeString("condition-coverage", conditionCoverage);
+						}
+						else
+						{
+							writer.WriteAttributeString("branch", "false");
+						}
 						writer.WriteEndElement();
 					}
 					writer.WriteEndElement();
@@ -134,12 +151,19 @@ namespace Gaillard.SharpCover
 		public string Name;
 		public int Total;
 		public int Hit;
-		public List<LineData> Lines = new List<LineData>();
+		public Dictionary<int, LineData> Lines = new Dictionary<int, LineData>();
 	}
 
 	public class LineData
 	{
 		public int LineNumber;
+		public int Total;
+		public int Hit;
+		public List<InstructionData> Instructions = new List<InstructionData>();
+	}
+
+	public class InstructionData
+	{
 		public bool Hit;
 	}
 }
