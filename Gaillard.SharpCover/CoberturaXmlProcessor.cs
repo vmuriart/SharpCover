@@ -26,22 +26,29 @@ namespace Gaillard.SharpCover
 		{
 			foreach (var line in File.ReadAllLines(_fileName))
 			{
-				var parts = line.Split('|');
-				var hit = parts[0];
-				var fullSignature = parts[1];
-				var lineNum = parts[2];
-				//var instructionOffset = parts[3];
-				//var instruction = parts[4];
+				try
+				{
+					var parts = line.Split('|');
+					var hit = parts[0];
+					var fullSignature = parts[1];
+					var lineNum = parts[2];
+					//var instructionOffset = parts[3];
+					//var instruction = parts[4];
 
-				parts = fullSignature.Split(' ');
-				//var returnType = parts[0];
-				var fullMethodName = parts[1];
+					parts = fullSignature.Split(' ');
+					//var returnType = parts[0];
+					var fullMethodName = parts[1];
 
-				parts = fullMethodName.Split(new string[] { "::" }, StringSplitOptions.None);
-				var className = parts[0];
-				var methodName = parts[1];
+					parts = fullMethodName.Split(new string[] { "::" }, StringSplitOptions.None);
+					var className = parts[0];
+					var methodName = parts[1];
 
-				Save(hit, className, methodName, lineNum);
+					Save(hit, className, methodName, lineNum);
+				}
+				catch (IndexOutOfRangeException)
+				{
+					System.Console.WriteLine("Problem reading line: {0}", line);
+				}
 			}
 		}
 
