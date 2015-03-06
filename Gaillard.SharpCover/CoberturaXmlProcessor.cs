@@ -99,7 +99,7 @@ namespace Gaillard.SharpCover
 			writer.WriteAttributeString("line-rate", "0");
 			writer.WriteAttributeString("branch-rate", "0");
 			writer.WriteAttributeString("version", "SharpCover");
-			writer.WriteAttributeString("branch-rate", "0");
+			writer.WriteAttributeString("timestamp", "0");
 			writer.WriteStartElement("sources");
 			writer.WriteElementString("source", ".");
 			writer.WriteEndElement();
@@ -110,9 +110,6 @@ namespace Gaillard.SharpCover
 			writer.WriteAttributeString("branch-rate", "0");
 			writer.WriteAttributeString("complexity", "0");
 			writer.WriteStartElement("classes");
-			writer.WriteAttributeString("line-rate", "0");
-			writer.WriteAttributeString("branch-rate", "0");
-			writer.WriteAttributeString("complexity", "0");
 			foreach (var classData in Data)
 			{
 				writer.WriteStartElement("class");
