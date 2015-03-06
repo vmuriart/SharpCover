@@ -30,11 +30,11 @@ namespace Gaillard.SharpCover
 				var hit = parts[0];
 				var fullSignature = parts[1];
 				var lineNum = parts[2];
-				var instructionOffset = parts[3];
-				var instruction = parts[4];
+				//var instructionOffset = parts[3];
+				//var instruction = parts[4];
 
 				parts = fullSignature.Split(' ');
-				var returnType = parts[0];
+				//var returnType = parts[0];
 				var fullMethodName = parts[1];
 
 				parts = fullMethodName.Split(new string[] { "::" }, StringSplitOptions.None);
