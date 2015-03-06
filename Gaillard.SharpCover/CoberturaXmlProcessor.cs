@@ -96,22 +96,38 @@ namespace Gaillard.SharpCover
 			writer.WriteStartDocument();
 			writer.WriteRaw("<!DOCTYPE coverage SYSTEM 'http://cobertura.sourceforge.net/xml/coverage-03.dtd'>");
 			writer.WriteStartElement("coverage");
+			writer.WriteAttributeString("line-rate", "0");
+			writer.WriteAttributeString("branch-rate", "0");
 			writer.WriteAttributeString("version", "SharpCover");
+			writer.WriteAttributeString("branch-rate", "0");
 			writer.WriteStartElement("sources");
 			writer.WriteElementString("source", ".");
 			writer.WriteEndElement();
 			writer.WriteStartElement("packages");
 			writer.WriteStartElement("package");
 			writer.WriteAttributeString("name", string.Empty);
+			writer.WriteAttributeString("line-rate", "0");
+			writer.WriteAttributeString("branch-rate", "0");
+			writer.WriteAttributeString("complexity", "0");
 			writer.WriteStartElement("classes");
+			writer.WriteAttributeString("line-rate", "0");
+			writer.WriteAttributeString("branch-rate", "0");
+			writer.WriteAttributeString("complexity", "0");
 			foreach (var classData in Data)
 			{
 				writer.WriteStartElement("class");
 				writer.WriteAttributeString("name", classData.Key);
+				writer.WriteAttributeString("filename", classData.Key);
+				writer.WriteAttributeString("line-rate", "0");
+				writer.WriteAttributeString("branch-rate", "0");
+				writer.WriteAttributeString("complexity", "0");
 				foreach (var methodData in classData.Value.Methods)
 				{
 					writer.WriteStartElement("method");
 					writer.WriteAttributeString("name", methodData.Key);
+					writer.WriteAttributeString("signature", string.Empty);
+					writer.WriteAttributeString("line-rate", "0");
+					writer.WriteAttributeString("branch-rate", "0");
 					foreach (var lineData in methodData.Value.Lines.OrderBy(x => x.Key))
 					{
 						writer.WriteStartElement("line");
