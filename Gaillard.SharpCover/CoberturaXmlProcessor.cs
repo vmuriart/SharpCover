@@ -5,12 +5,13 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Management;
+using System.Linq;
 
 namespace Gaillard.SharpCover
 {
 	public class CoberturaXmlProcessor
 	{
-		protected Dictionary<string, Dictionary<string, List<bool>>> Data = new Dictionary<string, Dictionary<string, List<bool>>>();
+		protected Dictionary<string, ClassData> Data = new Dictionary<string, ClassData>();
 
 		private string _fileName;
 		public CoberturaXmlProcessor(string fileName)
@@ -54,16 +55,47 @@ namespace Gaillard.SharpCover
 		{
 			if (!Data.ContainsKey(className))
 			{
-				Data[className] = new Dictionary<string, List<bool>>();
+				Data[className] = new ClassData() { Name = className };
 			}
 			var classData = Data[className];
-			if (!classData.ContainsKey(methodName))
+			if (!classData.Methods.ContainsKey(methodName))
 			{
-				classData[methodName] = new List<bool>();
+				classData.Methods[methodName] = new MethodData();
 			}
-			var methodData = classData[methodName];
-			methodData.Add(hit);
+			var methodData = classData.Methods[methodName];
+			methodData.Lines.Add(new LineData() { LineNumber = lineNum, Hit = hit });
+
+			methodData.Total++;
+			classData.Total++;
+
+			if (hit)
+			{
+				methodData.Hit++;
+				classData.Hit++;
+			}
 		}
+	}
+
+	public class ClassData
+	{
+		public string Name;
+		public int Total;
+		public int Hit;
+		public Dictionary<string, MethodData> Methods = new Dictionary<string, MethodData>();
+	}
+
+	public class MethodData
+	{
+		public string Name;
+		public int Total;
+		public int Hit;
+		public List<LineData> Lines = new List<LineData>();
+	}
+
+	public class LineData
+	{
+		public int LineNumber;
+		public bool Hit;
 	}
 }
 
