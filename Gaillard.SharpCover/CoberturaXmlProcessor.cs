@@ -6,6 +6,9 @@ using System.IO;
 using System.Collections.Generic;
 using System.Management;
 using System.Linq;
+using System.Xml;
+using System.Text;
+using System.Xml.Linq;
 
 namespace Gaillard.SharpCover
 {
@@ -40,8 +43,6 @@ namespace Gaillard.SharpCover
 
 				Save(hit, className, methodName, lineNum);
 			}
-
-			int stop = 1;
 		}
 
 		protected void Save(string hit, string className, string methodName, string lineNum)
@@ -73,6 +74,50 @@ namespace Gaillard.SharpCover
 				methodData.Hit++;
 				classData.Hit++;
 			}
+		}
+
+		public void Output(string fileName)
+		{
+			var writer = new XmlTextWriter(fileName, Encoding.UTF8);
+			writer.WriteStartDocument();
+			writer.WriteRaw("<!DOCTYPE coverage SYSTEM 'http://cobertura.sourceforge.net/xml/coverage-03.dtd'>");
+			writer.WriteStartElement("coverage");
+			writer.WriteAttributeString("version", "SharpCover");
+			writer.WriteStartElement("sources");
+			writer.WriteElementString("source", ".");
+			writer.WriteEndElement();
+			writer.WriteStartElement("packages");
+			writer.WriteStartElement("package");
+			writer.WriteAttributeString("name", string.Empty);
+			writer.WriteStartElement("classes");
+			foreach (var classData in Data)
+			{
+				writer.WriteStartElement("class");
+				writer.WriteAttributeString("name", classData.Key);
+				foreach (var methodData in classData.Value.Methods)
+				{
+					writer.WriteStartElement("method");
+					writer.WriteAttributeString("name", methodData.Key);
+					foreach (var lineData in methodData.Value.Lines)
+					{
+						writer.WriteStartElement("line");
+						writer.WriteAttributeString("number", lineData.LineNumber.ToString());
+						writer.WriteAttributeString("hits", lineData.Hit ? "1" : "0");
+						writer.WriteEndElement();
+					}
+					writer.WriteEndElement();
+				}
+				writer.WriteEndElement();
+			}
+			writer.WriteEndElement();
+			writer.WriteEndElement();
+			writer.WriteEndElement();
+			writer.WriteEndElement();
+			writer.Close();
+
+			var doc = XDocument.Load(fileName);
+			var formatted = doc.ToString();
+			File.WriteAllText(fileName, formatted);
 		}
 	}
 

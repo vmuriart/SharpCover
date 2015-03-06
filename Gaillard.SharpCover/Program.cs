@@ -16,7 +16,8 @@ namespace Gaillard.SharpCover
 {
     public static class Program
     {
-		public const string RESULTS_FILENAME = "coverageResults.txt"; 
+		public const string RESULTS_FILENAME = "coverageResults.txt";
+		public const string RESULTS_XML_FILENAME = "coverage.xml";
 		public const string MISS_PREFIX = "MISS|";
 		public const string HIT_PREFIX = "HIT|"; 
 		public const string HITS_FILENAME_PREFIX = "coverageHits";
@@ -255,6 +256,7 @@ namespace Gaillard.SharpCover
 
 			var xmlProcessor = new CoberturaXmlProcessor(RESULTS_FILENAME);
 			xmlProcessor.Process();
+			xmlProcessor.Output(RESULTS_XML_FILENAME);
 
             var missRatio = (double)missCount / (double)knownIndex;
             var coverage = Math.Round((1.0 - missRatio) * 100.0, 2);
