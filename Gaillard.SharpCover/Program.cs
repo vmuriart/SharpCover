@@ -253,6 +253,9 @@ namespace Gaillard.SharpCover
                 File.Delete(hitsPath);
             File.Delete(KNOWNS_FILENAME);
 
+			var xmlProcessor = new CoberturaXmlProcessor(RESULTS_FILENAME);
+			xmlProcessor.Process();
+
             var missRatio = (double)missCount / (double)knownIndex;
             var coverage = Math.Round((1.0 - missRatio) * 100.0, 2);
 
