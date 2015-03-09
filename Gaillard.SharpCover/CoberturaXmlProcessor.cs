@@ -88,6 +88,56 @@ namespace Gaillard.SharpCover
 				methodData.Hit++;
 				classData.Hit++;
 			}
+
+			//Interpolate();
+		}
+
+		public void Interpolate()
+		{
+			foreach (var classData in Data)
+			{
+				foreach (var methodData in classData.Value.Methods)
+				{
+					var lines = methodData.Value.Lines;
+					var nonNegativeLines = lines.Keys.Where(x => x != -1);
+					if (nonNegativeLines.Count() < 1)
+					{
+						continue;
+					}
+					var min = nonNegativeLines.Min();
+					var scanLines = lines.Where(x => x.Key > min).ToList();
+					foreach (var lineData in scanLines)
+					{
+						var hit = lineData.Value.Hit > 0;
+						for (int i = lineData.Key - 1; i > min; i--)
+						{
+							if (!lines.ContainsKey(i))
+							{
+								lineData.Value.Total++;
+								methodData.Value.Total++;
+								classData.Value.Total++;
+								if (hit)
+								{
+									lineData.Value.Hit++;
+									methodData.Value.Hit++;
+									classData.Value.Hit++;
+									lines.Add(i, LineData.HitLineData);
+								}
+								else
+								{
+									lines.Add(i, LineData.MissLineData);
+								}
+							}
+							else
+							{
+								break;
+							}
+						}
+					}
+					methodData.Value.Lines = lines;
+
+				}
+			}
 		}
 
 		public void Output(string fileName)
@@ -177,11 +227,28 @@ namespace Gaillard.SharpCover
 		public int Total;
 		public int Hit;
 		public List<InstructionData> Instructions = new List<InstructionData>();
+
+		public static LineData HitLineData = new LineData()
+		{
+			Total = 1,
+			Hit = 1,
+			Instructions = new List<InstructionData>() { InstructionData.HitInstructionData }
+		};
+		public static LineData MissLineData = new LineData()
+		{
+			Total = 1,
+			Hit = 0,
+			Instructions = new List<InstructionData>() { InstructionData.MissInstructionData }
+		};
 	}
 
 	public class InstructionData
 	{
 		public bool Hit;
+
+		public static InstructionData HitInstructionData = new InstructionData() { Hit = true };
+		public static InstructionData MissInstructionData = new InstructionData() { Hit = false };
 	}
+
 }
 
