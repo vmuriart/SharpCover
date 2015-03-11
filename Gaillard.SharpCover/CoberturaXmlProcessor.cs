@@ -44,6 +44,7 @@ namespace Gaillard.SharpCover
 					var methodName = parts[1];
 
 					Save(hit, className, methodName, lineNum);
+
 				}
 				catch (IndexOutOfRangeException)
 				{
@@ -164,7 +165,7 @@ namespace Gaillard.SharpCover
 				writer.WriteStartElement("class");
 				writer.WriteAttributeString("name", classData.Key);
 				writer.WriteAttributeString("filename", classData.Key);
-				writer.WriteAttributeString("line-rate", "0");
+				writer.WriteAttributeString("line-rate", classData.Value.LineRate());
 				writer.WriteAttributeString("branch-rate", "0");
 				writer.WriteAttributeString("complexity", "0");
 				foreach (var methodData in classData.Value.Methods)
@@ -172,7 +173,7 @@ namespace Gaillard.SharpCover
 					writer.WriteStartElement("method");
 					writer.WriteAttributeString("name", methodData.Key);
 					writer.WriteAttributeString("signature", string.Empty);
-					writer.WriteAttributeString("line-rate", "0");
+					writer.WriteAttributeString("line-rate", methodData.Value.LineRate());
 					writer.WriteAttributeString("branch-rate", "0");
 					foreach (var lineData in methodData.Value.Lines.OrderBy(x => x.Key))
 					{
@@ -207,24 +208,24 @@ namespace Gaillard.SharpCover
 		}
 	}
 
-	public class ClassData
+	public class ClassData : ILineRate
 	{
-		public int Total;
-		public int Hit;
+		public int Total { get; set; }
+		public int Hit { get; set; }
 		public IDictionary<string, MethodData> Methods = new Dictionary<string, MethodData>();
 	}
 
-	public class MethodData
+	public class MethodData : ILineRate
 	{
-		public int Total;
-		public int Hit;
+		public int Total { get; set; }
+		public int Hit { get; set; }
 		public IDictionary<int, LineData> Lines = new Dictionary<int, LineData>();
 	}
 
-	public class LineData
+	public class LineData : ILineRate
 	{
-		public int Total;
-		public int Hit;
+		public int Total { get; set; }
+		public int Hit { get; set; }
 		public List<InstructionData> Instructions = new List<InstructionData>();
 
 		public static LineData HitLineData = new LineData()
@@ -254,6 +255,25 @@ namespace Gaillard.SharpCover
 		{
 			HitInstructionDataList = new List<InstructionData>() { InstructionData.HitInstructionData };
 			MissInstructionDataList = new List<InstructionData>() { InstructionData.MissInstructionData };		
+		}
+	}
+
+	public interface ILineRate
+	{
+		int Total { get; }
+		int Hit { get; }
+	}
+
+	public static class RateExtensions
+	{
+		public static string LineRate(this ILineRate self)
+		{
+			if (self.Total == 0)
+			{
+				return "0";
+			}
+			var rate = (float)self.Hit / self.Total;
+			return rate.ToString();
 		}
 	}
 
