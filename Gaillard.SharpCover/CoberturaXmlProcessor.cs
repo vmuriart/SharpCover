@@ -15,6 +15,7 @@ namespace Gaillard.SharpCover
 	public class CoberturaXmlProcessor
 	{
 		protected Dictionary<string, ClassData> Data = new Dictionary<string, ClassData>();
+		protected LineAndBranchData LineAndBranchData = new LineAndBranchData();
 
 		private string _fileName;
 		public CoberturaXmlProcessor(string fileName)
@@ -83,12 +84,21 @@ namespace Gaillard.SharpCover
 			lineData.LineTotal++;
 			methodData.LineTotal++;
 			classData.LineTotal++;
-
+			LineAndBranchData.LineTotal++;
+			lineData.BranchTotal++;
+			methodData.BranchTotal++;
+			classData.BranchTotal++;
+			LineAndBranchData.BranchTotal++;
 			if (hit)
 			{
 				lineData.LineHit++;
 				methodData.LineHit++;
 				classData.LineHit++;
+				LineAndBranchData.LineHit++;
+				lineData.BranchHit++;
+				methodData.BranchHit++;
+				classData.BranchHit++;
+				LineAndBranchData.BranchHit++;
 			}
 		}
 
@@ -123,11 +133,13 @@ namespace Gaillard.SharpCover
 						{
 							methodData.Value.LineTotal++;
 							classData.Value.LineTotal++;
+							LineAndBranchData.LineTotal++;
 							if (hit)
 							{
 
 								methodData.Value.LineHit++;
 								classData.Value.LineHit++;
+								LineAndBranchData.LineHit++;
 								lines.Add(l, LineData.HitLineData);
 							}
 							else
@@ -146,8 +158,8 @@ namespace Gaillard.SharpCover
 			writer.WriteStartDocument();
 			//writer.WriteRaw("<!DOCTYPE coverage SYSTEM 'http://cobertura.sourceforge.net/xml/coverage-03.dtd'>");
 			writer.WriteStartElement("coverage");
-			writer.WriteAttributeString("line-rate", "0");
-			writer.WriteAttributeString("branch-rate", "0");
+			writer.WriteAttributeString("line-rate", LineAndBranchData.LineRate());
+			writer.WriteAttributeString("branch-rate", LineAndBranchData.BranchRate());
 			writer.WriteAttributeString("version", "SharpCover");
 			writer.WriteAttributeString("timestamp", "0");
 			writer.WriteStartElement("sources");
@@ -155,9 +167,9 @@ namespace Gaillard.SharpCover
 			writer.WriteEndElement();
 			writer.WriteStartElement("packages");
 			writer.WriteStartElement("package");
-			writer.WriteAttributeString("name", string.Empty);
-			writer.WriteAttributeString("line-rate", "0");
-			writer.WriteAttributeString("branch-rate", "0");
+			writer.WriteAttributeString("name", "[Unknown]");
+			writer.WriteAttributeString("line-rate", LineAndBranchData.LineRate());
+			writer.WriteAttributeString("branch-rate", LineAndBranchData.BranchRate());
 			writer.WriteAttributeString("complexity", "0");
 			writer.WriteStartElement("classes");
 			foreach (var classData in Data)
@@ -166,7 +178,7 @@ namespace Gaillard.SharpCover
 				writer.WriteAttributeString("name", classData.Key);
 				writer.WriteAttributeString("filename", classData.Key);
 				writer.WriteAttributeString("line-rate", classData.Value.LineRate());
-				writer.WriteAttributeString("branch-rate", "0");
+				writer.WriteAttributeString("branch-rate", classData.Value.BranchRate());
 				writer.WriteAttributeString("complexity", "0");
 				foreach (var methodData in classData.Value.Methods)
 				{
@@ -174,7 +186,7 @@ namespace Gaillard.SharpCover
 					writer.WriteAttributeString("name", methodData.Key);
 					writer.WriteAttributeString("signature", string.Empty);
 					writer.WriteAttributeString("line-rate", methodData.Value.LineRate());
-					writer.WriteAttributeString("branch-rate", "0");
+					writer.WriteAttributeString("branch-rate", methodData.Value.BranchRate());
 					foreach (var lineData in methodData.Value.Lines.OrderBy(x => x.Key))
 					{
 						writer.WriteStartElement("line");
@@ -208,24 +220,26 @@ namespace Gaillard.SharpCover
 		}
 	}
 
-	public class ClassData : ILineRate
+	public class LineAndBranchData : ILineRate, IBranchRate
 	{
 		public int LineTotal { get; set; }
 		public int LineHit { get; set; }
+		public int BranchTotal { get; set; }
+		public int BranchHit { get; set; }
+	}
+
+	public class ClassData : LineAndBranchData
+	{
 		public IDictionary<string, MethodData> Methods = new Dictionary<string, MethodData>();
 	}
 
-	public class MethodData : ILineRate
+	public class MethodData : LineAndBranchData
 	{
-		public int LineTotal { get; set; }
-		public int LineHit { get; set; }
 		public IDictionary<int, LineData> Lines = new Dictionary<int, LineData>();
 	}
 
-	public class LineData : ILineRate
+	public class LineData : LineAndBranchData
 	{
-		public int LineTotal { get; set; }
-		public int LineHit { get; set; }
 		public List<InstructionData> Instructions = new List<InstructionData>();
 
 		public static LineData HitLineData = new LineData()
@@ -264,6 +278,12 @@ namespace Gaillard.SharpCover
 		int LineHit { get; }
 	}
 
+	public interface IBranchRate
+	{
+		int BranchTotal { get; }
+		int BranchHit { get; }
+	}
+
 	public static class RateExtensions
 	{
 		public static string LineRate(this ILineRate self)
@@ -273,6 +293,16 @@ namespace Gaillard.SharpCover
 				return "0";
 			}
 			var rate = (float)self.LineHit / self.LineTotal;
+			return rate.ToString();
+		}
+
+		public static string BranchRate(this IBranchRate self)
+		{
+			if (self.BranchTotal == 0)
+			{
+				return "0";
+			}
+			var rate = (float)self.BranchHit / self.BranchTotal;
 			return rate.ToString();
 		}
 	}
