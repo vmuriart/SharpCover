@@ -183,14 +183,15 @@ namespace Gaillard.SharpCover
 
 		public void Output(string fileName)
 		{
+			var timestamp = (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
 			var writer = new XmlTextWriter(fileName, Encoding.UTF8);
 			writer.WriteStartDocument();
 			//writer.WriteRaw("<!DOCTYPE coverage SYSTEM 'http://cobertura.sourceforge.net/xml/coverage-03.dtd'>");
 			writer.WriteStartElement("coverage");
-			writer.WriteAttributeString("line-rate", LineAndBranchData.LineRate());
 			writer.WriteAttributeString("branch-rate", LineAndBranchData.BranchRate());
+			writer.WriteAttributeString("line-rate", LineAndBranchData.LineRate());
+			writer.WriteAttributeString("timestamp", timestamp.ToString());
 			writer.WriteAttributeString("version", "SharpCover");
-			writer.WriteAttributeString("timestamp", "0");
 			writer.WriteStartElement("sources");
 			writer.WriteElementString("source", ".");
 			writer.WriteEndElement();
@@ -198,15 +199,14 @@ namespace Gaillard.SharpCover
 			foreach (var packageData in Data)
 			{
 				writer.WriteStartElement("package");
-				writer.WriteAttributeString("name", packageData.Key);
-				writer.WriteAttributeString("line-rate", packageData.Value.LineRate());
 				writer.WriteAttributeString("branch-rate", packageData.Value.BranchRate());
 				writer.WriteAttributeString("complexity", "0");
+				writer.WriteAttributeString("line-rate", packageData.Value.LineRate());
+				writer.WriteAttributeString("name", packageData.Key);
 				writer.WriteStartElement("classes");
 				foreach (var classData in packageData.Value.Classes)
 				{
 					writer.WriteStartElement("class");
-					writer.WriteAttributeString("name", classData.Key);
 					var classFileName = "[Unknown]";
 					foreach (var methodData in classData.Value.Methods)
 					{
@@ -223,10 +223,11 @@ namespace Gaillard.SharpCover
 							break;
 						}
 					}
-					writer.WriteAttributeString("filename", classFileName);
-					writer.WriteAttributeString("line-rate", classData.Value.LineRate());
 					writer.WriteAttributeString("branch-rate", classData.Value.BranchRate());
 					writer.WriteAttributeString("complexity", "0");
+					writer.WriteAttributeString("filename", classFileName);
+					writer.WriteAttributeString("line-rate", classData.Value.LineRate());
+					writer.WriteAttributeString("name", classData.Key);
 					foreach (var methodData in classData.Value.Methods)
 					{
 						writer.WriteStartElement("method");
@@ -246,6 +247,11 @@ namespace Gaillard.SharpCover
 									var conditionCoverage = string.Format("{0}% ({1}/{2})", (int)(100 * lineData.Value.LineHit / lineData.Value.LineTotal), lineData.Value.LineHit, lineData.Value.LineTotal);
 									writer.WriteAttributeString("branch", "true");
 									writer.WriteAttributeString("condition-coverage", conditionCoverage);
+									writer.WriteStartElement("condition");
+									writer.WriteAttributeString("coverage", string.Format("{0}%", (int)(100 * lineData.Value.LineHit / lineData.Value.LineTotal)));
+									writer.WriteAttributeString("number", "0");
+									writer.WriteAttributeString("type","jump");
+									writer.WriteEndElement();							
 								}
 								else
 								{
