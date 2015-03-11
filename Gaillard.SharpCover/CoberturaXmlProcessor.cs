@@ -44,15 +44,13 @@ namespace Gaillard.SharpCover
 					var methodName = parts[1];
 
 					Save(hit, className, methodName, lineNum);
-
-					Interpolate();
-
 				}
 				catch (IndexOutOfRangeException)
 				{
 					System.Console.WriteLine("Problem reading line: {0}", line);
 				}
 			}
+			Interpolate();
 		}
 
 		protected void Save(string hit, string className, string methodName, string lineNum)
@@ -133,8 +131,7 @@ namespace Gaillard.SharpCover
 							}
 							else
 							{
-								lines.Add(l
-									, LineData.MissLineData);
+								lines.Add(l, LineData.MissLineData);
 							}
 						}
 					}
@@ -234,13 +231,13 @@ namespace Gaillard.SharpCover
 		{
 			Total = 1,
 			Hit = 1,
-			Instructions = new List<InstructionData>() { InstructionData.HitInstructionData }
+			Instructions = InstructionData.HitInstructionDataList
 		};
 		public static LineData MissLineData = new LineData()
 		{
 			Total = 1,
 			Hit = 0,
-			Instructions = new List<InstructionData>() { InstructionData.MissInstructionData }
+			Instructions = InstructionData.MissInstructionDataList
 		};
 	}
 
@@ -250,6 +247,14 @@ namespace Gaillard.SharpCover
 
 		public static InstructionData HitInstructionData = new InstructionData() { Hit = true };
 		public static InstructionData MissInstructionData = new InstructionData() { Hit = false };
+		public static List<InstructionData> HitInstructionDataList;
+		public static List<InstructionData> MissInstructionDataList;
+
+		static InstructionData()
+		{
+			HitInstructionDataList = new List<InstructionData>() { InstructionData.HitInstructionData };
+			MissInstructionDataList = new List<InstructionData>() { InstructionData.MissInstructionData };		
+		}
 	}
 
 }
