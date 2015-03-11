@@ -80,15 +80,15 @@ namespace Gaillard.SharpCover
 			var lineData = methodData.Lines[lineNum];
 			lineData.Instructions.Add(new InstructionData() { Hit = hit });
 
-			lineData.Total++;
-			methodData.Total++;
-			classData.Total++;
+			lineData.LineTotal++;
+			methodData.LineTotal++;
+			classData.LineTotal++;
 
 			if (hit)
 			{
-				lineData.Hit++;
-				methodData.Hit++;
-				classData.Hit++;
+				lineData.LineHit++;
+				methodData.LineHit++;
+				classData.LineHit++;
 			}
 		}
 
@@ -118,16 +118,16 @@ namespace Gaillard.SharpCover
 					{
 						var thisLineNum = reverseOrderedKeys[i];
 						var nextLineNum = reverseOrderedKeys[i + 1];
-						var hit = lines[thisLineNum].Hit > 0;
+						var hit = lines[thisLineNum].LineHit > 0;
 						for (int l = thisLineNum - 1; l > nextLineNum + 1; l--)
 						{
-							methodData.Value.Total++;
-							classData.Value.Total++;
+							methodData.Value.LineTotal++;
+							classData.Value.LineTotal++;
 							if (hit)
 							{
 
-								methodData.Value.Hit++;
-								classData.Value.Hit++;
+								methodData.Value.LineHit++;
+								classData.Value.LineHit++;
 								lines.Add(l, LineData.HitLineData);
 							}
 							else
@@ -179,10 +179,10 @@ namespace Gaillard.SharpCover
 					{
 						writer.WriteStartElement("line");
 						writer.WriteAttributeString("number", lineData.Key.ToString());
-						writer.WriteAttributeString("hits", lineData.Value.Hit > 0 ? "1" : "0");
+						writer.WriteAttributeString("hits", lineData.Value.LineHit > 0 ? "1" : "0");
 						if (lineData.Value.Instructions.Count > 1)
 						{
-							var conditionCoverage = string.Format("{0}% ({1}/{2})", (int)(100 * lineData.Value.Hit / lineData.Value.Total), lineData.Value.Hit, lineData.Value.Total);
+							var conditionCoverage = string.Format("{0}% ({1}/{2})", (int)(100 * lineData.Value.LineHit / lineData.Value.LineTotal), lineData.Value.LineHit, lineData.Value.LineTotal);
 							writer.WriteAttributeString("branch", "true");
 							writer.WriteAttributeString("condition-coverage", conditionCoverage);
 						}
@@ -210,34 +210,34 @@ namespace Gaillard.SharpCover
 
 	public class ClassData : ILineRate
 	{
-		public int Total { get; set; }
-		public int Hit { get; set; }
+		public int LineTotal { get; set; }
+		public int LineHit { get; set; }
 		public IDictionary<string, MethodData> Methods = new Dictionary<string, MethodData>();
 	}
 
 	public class MethodData : ILineRate
 	{
-		public int Total { get; set; }
-		public int Hit { get; set; }
+		public int LineTotal { get; set; }
+		public int LineHit { get; set; }
 		public IDictionary<int, LineData> Lines = new Dictionary<int, LineData>();
 	}
 
 	public class LineData : ILineRate
 	{
-		public int Total { get; set; }
-		public int Hit { get; set; }
+		public int LineTotal { get; set; }
+		public int LineHit { get; set; }
 		public List<InstructionData> Instructions = new List<InstructionData>();
 
 		public static LineData HitLineData = new LineData()
 		{
-			Total = 1,
-			Hit = 1,
+			LineTotal = 1,
+			LineHit = 1,
 			Instructions = InstructionData.HitInstructionDataList
 		};
 		public static LineData MissLineData = new LineData()
 		{
-			Total = 1,
-			Hit = 0,
+			LineTotal = 1,
+			LineHit = 0,
 			Instructions = InstructionData.MissInstructionDataList
 		};
 	}
@@ -260,19 +260,19 @@ namespace Gaillard.SharpCover
 
 	public interface ILineRate
 	{
-		int Total { get; }
-		int Hit { get; }
+		int LineTotal { get; }
+		int LineHit { get; }
 	}
 
 	public static class RateExtensions
 	{
 		public static string LineRate(this ILineRate self)
 		{
-			if (self.Total == 0)
+			if (self.LineTotal == 0)
 			{
 				return "0";
 			}
-			var rate = (float)self.Hit / self.Total;
+			var rate = (float)self.LineHit / self.LineTotal;
 			return rate.ToString();
 		}
 	}
