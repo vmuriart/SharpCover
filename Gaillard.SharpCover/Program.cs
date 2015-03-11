@@ -98,12 +98,16 @@ namespace Gaillard.SharpCover
             }
 
             var lineNum = -1;
-            if (instruction.SequencePoint != null)
-                lineNum = instruction.SequencePoint.StartLine;
+			var filename = "[Unknown]";
+			if (instruction.SequencePoint != null)
+			{
+				filename = instruction.SequencePoint.Document.Url.Split(Path.DirectorySeparatorChar).Last();
+				lineNum = instruction.SequencePoint.StartLine;
+			}
 				
 			var assemblyNameParts = assembly.FullName.Split(',');
 			var assemblyName = assemblyNameParts[0].Trim();
-			var line = string.Join("|", assemblyName, method.FullName, lineNum, instruction.Offset, instruction);
+			var line = string.Join("|", assemblyName, method.FullName, filename, lineNum, instruction.Offset, instruction);
 
             writer.WriteLine(line);
 

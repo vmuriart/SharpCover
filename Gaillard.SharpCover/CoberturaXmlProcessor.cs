@@ -33,9 +33,10 @@ namespace Gaillard.SharpCover
 					var hit = parts[0];
 					var assemblyName = parts[1];
 					var fullSignature = parts[2];
-					var lineNum = parts[3];
-					//var instructionOffset = parts[4];
-					//var instruction = parts[5];
+					var fileName = parts[3];
+					var lineNum = parts[4];
+					//var instructionOffset = parts[5];
+					//var instruction = parts[6];
 
 					parts = fullSignature.Split(' ');
 					//var returnType = parts[0];
