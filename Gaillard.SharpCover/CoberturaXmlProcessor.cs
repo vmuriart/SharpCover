@@ -31,10 +31,11 @@ namespace Gaillard.SharpCover
 				{
 					var parts = line.Split('|');
 					var hit = parts[0];
-					var fullSignature = parts[1];
-					var lineNum = parts[2];
-					//var instructionOffset = parts[3];
-					//var instruction = parts[4];
+					var assembly = parts[1];
+					var fullSignature = parts[2];
+					var lineNum = parts[3];
+					//var instructionOffset = parts[4];
+					//var instruction = parts[5];
 
 					parts = fullSignature.Split(' ');
 					//var returnType = parts[0];

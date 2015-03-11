@@ -75,7 +75,8 @@ namespace Gaillard.SharpCover
             }
         }
 
-        private static void Instrument(Instruction instruction,
+		private static void Instrument(AssemblyDefinition assembly,
+									   Instruction instruction,
                                        MethodReference countReference,
                                        MethodDefinition method,
                                        ILProcessor worker,
@@ -99,8 +100,10 @@ namespace Gaillard.SharpCover
             var lineNum = -1;
             if (instruction.SequencePoint != null)
                 lineNum = instruction.SequencePoint.StartLine;
-
-            var line = string.Join("|", method.FullName, lineNum, instruction.Offset, instruction);
+				
+			var assemblyNameParts = assembly.FullName.Split(',');
+			var assemblyName = assemblyNameParts[0].Trim();
+			var line = string.Join("|", assemblyName, method.FullName, lineNum, instruction.Offset, instruction);
 
             writer.WriteLine(line);
 
@@ -150,7 +153,8 @@ namespace Gaillard.SharpCover
             }
         }
 
-        private static void Instrument(
+		private static void Instrument(
+			AssemblyDefinition assembly,
             MethodDefinition method,
             MethodReference countReference,
             InstrumentConfig config,
@@ -174,13 +178,14 @@ namespace Gaillard.SharpCover
                         lastLine = line;
                 }
 
-                Instrument(instruction, countReference, method, worker, lastLine, config, writer, ref instrumentIndex);
+                Instrument(assembly, instruction, countReference, method, worker, lastLine, config, writer, ref instrumentIndex);
             }
 
             method.Body.OptimizeMacros();
         }
 
         private static void Instrument(
+			AssemblyDefinition assembly,
             TypeDefinition type,
             MethodReference countReference,
             InstrumentConfig config,
@@ -194,7 +199,7 @@ namespace Gaillard.SharpCover
                 return;
 
             foreach (var method in type.Methods.Where(m => m.HasBody))
-                Instrument(method, countReference, config, writer, ref instrumentIndex);
+                Instrument(assembly, method, countReference, config, writer, ref instrumentIndex);
         }
 
         private static void Instrument(string assemblyPath, InstrumentConfig config, TextWriter writer, ref int instrumentIndex)
@@ -209,7 +214,7 @@ namespace Gaillard.SharpCover
             var countReference = assembly.MainModule.Import(countMethodInfo);
 
             foreach (var type in assembly.MainModule.GetTypes())//.Types doesnt include nested types
-                Instrument(type, countReference, config, writer, ref instrumentIndex);
+                Instrument(assembly, type, countReference, config, writer, ref instrumentIndex);
 
             assembly.Write(assemblyPath, new WriterParameters { WriteSymbols = true });
 
