@@ -26,6 +26,7 @@ namespace Gaillard.SharpCover
 		public void Process()
 		{
 			var pwd = Directory.GetCurrentDirectory();
+			System.Console.WriteLine("Current directory: {0}", pwd);
 			foreach (var line in File.ReadAllLines(_fileName))
 			{
 				try
@@ -39,17 +40,10 @@ namespace Gaillard.SharpCover
 					//var instructionOffset = parts[5];
 					//var instruction = parts[6];
 
-					var count = 0;
 					if (fileName != "[Unknown]")
 					{
-						foreach(char c in pwd)
-						{
-							if (fileName[count]!=c)
-							{
-								fileName = fileName.Substring(count, fileName.Length-count); 
-							}
-							count+=1;
-						}
+						fileName = fileName.Replace(pwd, "");
+						fileName = fileName.TrimStart(Path.DirectorySeparatorChar);
 					}
 
 					parts = fullSignature.Split(' ');
