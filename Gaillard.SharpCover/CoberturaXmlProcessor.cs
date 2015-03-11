@@ -46,7 +46,7 @@ namespace Gaillard.SharpCover
 					var className = parts[0];
 					var methodName = parts[1];
 
-					Save(hit, assemblyName, className, methodName, lineNum);
+					Save(hit, assemblyName, className, methodName, fileName, lineNum);
 
 				}
 				catch (IndexOutOfRangeException)
@@ -57,14 +57,14 @@ namespace Gaillard.SharpCover
 			Interpolate();
 		}
 
-		protected void Save(string hit, string packageName, string className, string methodName, string lineNum)
+		protected void Save(string hit, string packageName, string className, string methodName, string fileName, string lineNum)
 		{
 			var line = -1;
 			int.TryParse(lineNum, out line);
-			Save(hit == "HIT", packageName, className, methodName, line);
+			Save(hit == "HIT", packageName, className, methodName, fileName, line);
 		}
 
-		protected void Save(bool hit, string packageName, string className, string methodName, int lineNum)
+		protected void Save(bool hit, string packageName, string className, string methodName, string fileName, int lineNum)
 		{
 			if (!Data.ContainsKey(packageName))
 			{
@@ -81,20 +81,27 @@ namespace Gaillard.SharpCover
 				classData.Methods[methodName] = new MethodData();
 			}
 			var methodData = classData.Methods[methodName];
-			if (!methodData.Lines.ContainsKey(lineNum))
+			if (!methodData.Files.ContainsKey(fileName))
 			{
-				methodData.Lines[lineNum] = new LineData();
+				methodData.Files[fileName] = new FileData();
 			}
-			var lineData = methodData.Lines[lineNum];
+			var fileData = methodData.Files[fileName];
+			if (!fileData.Lines.ContainsKey(lineNum))
+			{
+				fileData.Lines[lineNum] = new LineData();
+			}
+			var lineData = fileData.Lines[lineNum];
 			lineData.Instructions.Add(new InstructionData() { Hit = hit });
 
 			lineData.LineTotal++;
+			fileData.LineTotal++;
 			methodData.LineTotal++;
 			classData.LineTotal++;
 			packageData.LineTotal++;
 			LineAndBranchData.LineTotal++;
 
 			lineData.BranchTotal++;
+			fileData.BranchTotal++;
 			methodData.BranchTotal++;
 			classData.BranchTotal++;
 			packageData.BranchTotal++;
@@ -102,12 +109,14 @@ namespace Gaillard.SharpCover
 			if (hit)
 			{
 				lineData.LineHit++;
+				fileData.LineHit++;
 				methodData.LineHit++;
 				classData.LineHit++;
 				packageData.LineHit++;
 				LineAndBranchData.LineHit++;
 
 				lineData.BranchHit++;
+				fileData.BranchHit++;
 				methodData.BranchHit++;
 				classData.BranchHit++;
 				packageData.BranchHit++;
@@ -123,42 +132,47 @@ namespace Gaillard.SharpCover
 				{
 					foreach (var methodData in classData.Value.Methods)
 					{
-						var lines = methodData.Value.Lines;
-						var keys = lines.Keys.Where(x => x != -1);
-						if (keys.Count() < 1)
+						foreach (var fileData in methodData.Value.Files)
 						{
-							continue;
-						}
-
-						var reverseOrderedKeys = keys.OrderByDescending(x => x).ToList();
-						if (reverseOrderedKeys[0] - reverseOrderedKeys[reverseOrderedKeys.Count - 1] == reverseOrderedKeys.Count - 1)
-						{
-							continue;
-						}
-
-						for (int i = 0; i < reverseOrderedKeys.Count - 1; i++)
-						{
-							var thisLineNum = reverseOrderedKeys[i];
-							var nextLineNum = reverseOrderedKeys[i + 1];
-							var hit = lines[thisLineNum].LineHit > 0;
-							for (int l = thisLineNum - 1; l > nextLineNum + 1; l--)
+							var lines = fileData.Value.Lines;
+							var keys = lines.Keys.Where(x => x != -1);
+							if (keys.Count() < 1)
 							{
-								methodData.Value.LineTotal++;
-								classData.Value.LineTotal++;
-								packageData.Value.LineTotal++;
-								LineAndBranchData.LineTotal++;
-								if (hit)
-								{
+								continue;
+							}
 
-									methodData.Value.LineHit++;
-									classData.Value.LineHit++;
-									packageData.Value.LineHit++;
-									LineAndBranchData.LineHit++;
-									lines.Add(l, LineData.HitLineData);
-								}
-								else
+							var reverseOrderedKeys = keys.OrderByDescending(x => x).ToList();
+							if (reverseOrderedKeys[0] - reverseOrderedKeys[reverseOrderedKeys.Count - 1] == reverseOrderedKeys.Count - 1)
+							{
+								continue;
+							}
+
+							for (int i = 0; i < reverseOrderedKeys.Count - 1; i++)
+							{
+								var thisLineNum = reverseOrderedKeys[i];
+								var nextLineNum = reverseOrderedKeys[i + 1];
+								var hit = lines[thisLineNum].LineHit > 0;
+								for (int l = thisLineNum - 1; l > nextLineNum + 1; l--)
 								{
-									lines.Add(l, LineData.MissLineData);
+									fileData.Value.LineTotal++;
+									methodData.Value.LineTotal++;
+									classData.Value.LineTotal++;
+									packageData.Value.LineTotal++;
+									LineAndBranchData.LineTotal++;
+									if (hit)
+									{
+
+										fileData.Value.LineHit++;
+										methodData.Value.LineHit++;
+										classData.Value.LineHit++;
+										packageData.Value.LineHit++;
+										LineAndBranchData.LineHit++;
+										lines.Add(l, LineData.HitLineData);
+									}
+									else
+									{
+										lines.Add(l, LineData.MissLineData);
+									}
 								}
 							}
 						}
@@ -193,7 +207,23 @@ namespace Gaillard.SharpCover
 				{
 					writer.WriteStartElement("class");
 					writer.WriteAttributeString("name", classData.Key);
-					writer.WriteAttributeString("filename", classData.Key);
+					var classFileName = "[Unknown]";
+					foreach (var methodData in classData.Value.Methods)
+					{
+						foreach (var fileData in methodData.Value.Files)
+						{
+							if (fileData.Key != classFileName)
+							{
+								classFileName = fileData.Key;
+								break;
+							}
+						}
+						if (classFileName != "[Unknown]")
+						{
+							break;
+						}
+					}
+					writer.WriteAttributeString("filename", classFileName);
 					writer.WriteAttributeString("line-rate", classData.Value.LineRate());
 					writer.WriteAttributeString("branch-rate", classData.Value.BranchRate());
 					writer.WriteAttributeString("complexity", "0");
@@ -204,22 +234,25 @@ namespace Gaillard.SharpCover
 						writer.WriteAttributeString("signature", string.Empty);
 						writer.WriteAttributeString("line-rate", methodData.Value.LineRate());
 						writer.WriteAttributeString("branch-rate", methodData.Value.BranchRate());
-						foreach (var lineData in methodData.Value.Lines.OrderBy(x => x.Key))
+						foreach (var fileData in methodData.Value.Files)
 						{
-							writer.WriteStartElement("line");
-							writer.WriteAttributeString("number", lineData.Key.ToString());
-							writer.WriteAttributeString("hits", lineData.Value.LineHit > 0 ? "1" : "0");
-							if (lineData.Value.Instructions.Count > 1)
+							foreach (var lineData in fileData.Value.Lines.OrderBy(x => x.Key))
 							{
-								var conditionCoverage = string.Format("{0}% ({1}/{2})", (int)(100 * lineData.Value.LineHit / lineData.Value.LineTotal), lineData.Value.LineHit, lineData.Value.LineTotal);
-								writer.WriteAttributeString("branch", "true");
-								writer.WriteAttributeString("condition-coverage", conditionCoverage);
+								writer.WriteStartElement("line");
+								writer.WriteAttributeString("number", lineData.Key.ToString());
+								writer.WriteAttributeString("hits", lineData.Value.LineHit > 0 ? "1" : "0");
+								if (lineData.Value.Instructions.Count > 1)
+								{
+									var conditionCoverage = string.Format("{0}% ({1}/{2})", (int)(100 * lineData.Value.LineHit / lineData.Value.LineTotal), lineData.Value.LineHit, lineData.Value.LineTotal);
+									writer.WriteAttributeString("branch", "true");
+									writer.WriteAttributeString("condition-coverage", conditionCoverage);
+								}
+								else
+								{
+									writer.WriteAttributeString("branch", "false");
+								}
+								writer.WriteEndElement();
 							}
-							else
-							{
-								writer.WriteAttributeString("branch", "false");
-							}
-							writer.WriteEndElement();
 						}
 						writer.WriteEndElement();
 					}
@@ -257,6 +290,11 @@ namespace Gaillard.SharpCover
 	}
 
 	public class MethodData : LineAndBranchData
+	{
+		public IDictionary<string, FileData> Files = new Dictionary<string, FileData>();
+	}
+
+	public class FileData : LineAndBranchData
 	{
 		public IDictionary<int, LineData> Lines = new Dictionary<int, LineData>();
 	}
