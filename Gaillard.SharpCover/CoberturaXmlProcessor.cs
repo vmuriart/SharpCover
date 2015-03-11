@@ -44,6 +44,9 @@ namespace Gaillard.SharpCover
 					var methodName = parts[1];
 
 					Save(hit, className, methodName, lineNum);
+
+					Interpolate();
+
 				}
 				catch (IndexOutOfRangeException)
 				{
@@ -88,54 +91,53 @@ namespace Gaillard.SharpCover
 				methodData.Hit++;
 				classData.Hit++;
 			}
-
-			//Interpolate();
 		}
 
 		public void Interpolate()
 		{
+			var c = 0;
+
 			foreach (var classData in Data)
 			{
+				c++;
 				foreach (var methodData in classData.Value.Methods)
 				{
 					var lines = methodData.Value.Lines;
-					var nonNegativeLines = lines.Keys.Where(x => x != -1);
-					if (nonNegativeLines.Count() < 1)
+					var keys = lines.Keys.Where(x => x != -1);
+					if (keys.Count() < 1)
 					{
 						continue;
 					}
-					var min = nonNegativeLines.Min();
-					var scanLines = lines.Where(x => x.Key > min).ToList();
-					foreach (var lineData in scanLines)
+
+					var reverseOrderedKeys = keys.OrderByDescending(x => x).ToList();
+					if (reverseOrderedKeys[0] - reverseOrderedKeys[reverseOrderedKeys.Count - 1] == reverseOrderedKeys.Count - 1)
 					{
-						var hit = lineData.Value.Hit > 0;
-						for (int i = lineData.Key - 1; i > min; i--)
+						continue;
+					}
+
+					for (int i=0; i<reverseOrderedKeys.Count-1; i++)
+					{
+						var thisLineNum = reverseOrderedKeys[i];
+						var nextLineNum = reverseOrderedKeys[i + 1];
+						var hit = lines[thisLineNum].Hit > 0;
+						for (int l = thisLineNum - 1; l > nextLineNum + 1; l--)
 						{
-							if (!lines.ContainsKey(i))
+							methodData.Value.Total++;
+							classData.Value.Total++;
+							if (hit)
 							{
-								lineData.Value.Total++;
-								methodData.Value.Total++;
-								classData.Value.Total++;
-								if (hit)
-								{
-									lineData.Value.Hit++;
-									methodData.Value.Hit++;
-									classData.Value.Hit++;
-									lines.Add(i, LineData.HitLineData);
-								}
-								else
-								{
-									lines.Add(i, LineData.MissLineData);
-								}
+
+								methodData.Value.Hit++;
+								classData.Value.Hit++;
+								lines.Add(l, LineData.HitLineData);
 							}
 							else
 							{
-								break;
+								lines.Add(l
+									, LineData.MissLineData);
 							}
 						}
 					}
-					methodData.Value.Lines = lines;
-
 				}
 			}
 		}
@@ -144,7 +146,7 @@ namespace Gaillard.SharpCover
 		{
 			var writer = new XmlTextWriter(fileName, Encoding.UTF8);
 			writer.WriteStartDocument();
-			writer.WriteRaw("<!DOCTYPE coverage SYSTEM 'http://cobertura.sourceforge.net/xml/coverage-03.dtd'>");
+			//writer.WriteRaw("<!DOCTYPE coverage SYSTEM 'http://cobertura.sourceforge.net/xml/coverage-03.dtd'>");
 			writer.WriteStartElement("coverage");
 			writer.WriteAttributeString("line-rate", "0");
 			writer.WriteAttributeString("branch-rate", "0");
@@ -202,9 +204,9 @@ namespace Gaillard.SharpCover
 			writer.WriteEndElement();
 			writer.Close();
 
-			//var doc = XDocument.Load(fileName);
-			//var formatted = doc.ToString();
-			//File.WriteAllText(fileName, formatted);
+			var doc = XDocument.Load(fileName);
+			var formatted = doc.ToString();
+			File.WriteAllText(fileName, formatted);
 		}
 	}
 
@@ -212,14 +214,14 @@ namespace Gaillard.SharpCover
 	{
 		public int Total;
 		public int Hit;
-		public Dictionary<string, MethodData> Methods = new Dictionary<string, MethodData>();
+		public IDictionary<string, MethodData> Methods = new Dictionary<string, MethodData>();
 	}
 
 	public class MethodData
 	{
 		public int Total;
 		public int Hit;
-		public Dictionary<int, LineData> Lines = new Dictionary<int, LineData>();
+		public IDictionary<int, LineData> Lines = new Dictionary<int, LineData>();
 	}
 
 	public class LineData
