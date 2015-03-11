@@ -101,7 +101,7 @@ namespace Gaillard.SharpCover
 			var filename = "[Unknown]";
 			if (instruction.SequencePoint != null)
 			{
-				filename = instruction.SequencePoint.Document.Url.Split(Path.DirectorySeparatorChar).Last();
+				filename = instruction.SequencePoint.Document.Url;
 				lineNum = instruction.SequencePoint.StartLine;
 			}
 				
