@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Gaillard.SharpCover.Tests
+namespace SharpCover.Tests
 {
     public interface IEvent
     {
