@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 using Mono.Cecil.Rocks;
@@ -9,9 +9,10 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
 
-[assembly: AssemblyVersion("1.0.2.*")]
+//Note This is a modified repo to be able to create a bamboo task and compile run in visual studio 2015
+// original work by https://github.com/gaillard all rights belong to him
 
-namespace Gaillard.SharpCover
+namespace SharpCover
 {
     public static class Program
     {

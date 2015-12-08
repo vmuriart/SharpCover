@@ -1,11 +1,11 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Threading;
 using System.Diagnostics;
 
-namespace Gaillard.SharpCover
+// ReSharper disable once CheckNamespace
+namespace SharpCover
 {
     public static class Counter
     {
