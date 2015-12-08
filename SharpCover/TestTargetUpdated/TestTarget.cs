@@ -161,7 +161,7 @@ namespace SharpCover.Tests
             OffsetExcludes();
             LineExcludes();
 
-            var eventUsage = new Gaillard.SharpCover.Tests.EventUsage();
+            var eventUsage = new SharpCover.Tests.EventUsage();
             eventUsage.TheEvent += eventUsage.EventMethod;
             eventUsage.RaiseEvent();
             eventUsage.TheEvent -= eventUsage.EventMethod;
