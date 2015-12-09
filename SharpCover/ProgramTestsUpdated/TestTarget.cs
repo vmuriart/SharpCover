@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Gaillard.SharpCover.Tests
+namespace SharpCover.Tests
 {
     public interface IEvent
     {
@@ -161,12 +161,12 @@ namespace Gaillard.SharpCover.Tests
             OffsetExcludes();
             LineExcludes();
 
-            var eventUsage = new Gaillard.SharpCover.Tests.EventUsage();
+            var eventUsage = new SharpCover.Tests.EventUsage();
             eventUsage.TheEvent += eventUsage.EventMethod;
             eventUsage.RaiseEvent();
             eventUsage.TheEvent -= eventUsage.EventMethod;
 
-            new Constrained().ToString(5);
+            (new Constrained()).ToString(5);
         }
     }
 }

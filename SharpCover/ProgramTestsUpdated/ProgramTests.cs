@@ -181,7 +181,7 @@ string.Format(@"{{
         [Test]
         public void Constrained()
         {
-            var config = @"{""assemblies"": [""bin/Debug/TestTarget.exe""], ""typeInclude"": "".*Constrained""}";
+            var config = @"{""assemblies"": [""bin\\Debug\\TestTarget.exe""], ""typeInclude"": "".*Constrained""}";
 
             Assert.AreEqual(0, Program.Main(new []{ "instrument", config }));
 
