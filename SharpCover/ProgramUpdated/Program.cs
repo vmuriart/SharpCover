@@ -248,6 +248,9 @@ namespace SharpCover
             var coverage = Math.Round((1.0 - missRatio) * 100.0, 2);
 
             Console.WriteLine(string.Format("Overall coverage was {0}%.", coverage));
+            //TODO: Currently all It gives is the general % for the entire assemblies that was run
+            //Needs To summarize assemblies
+            File.WriteAllText("coverageSummary.txt","Coverage:"+coverage.ToString());
 
             return missCount == 0 ? 0 : 1;
         }
