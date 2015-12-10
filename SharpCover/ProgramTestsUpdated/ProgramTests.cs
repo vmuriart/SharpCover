@@ -131,7 +131,7 @@ namespace SharpCover.Tests
     ""methodInclude"": "".*LineExcludes.*"",
     ""methodBodyExcludes"": [
         {
-            ""method"": ""System.Void Gaillard.SharpCover.Tests.TestTarget::LineExcludes()"",
+            ""method"": ""System.Void SharpCover.Tests.TestTarget::LineExcludes()"",
             ""lines"": [""++i;"", ""} catch (Exception) {"", ""var b = false; b = !b;//will never get here"", ""}""]
         }
     ]
@@ -162,7 +162,7 @@ string.Format(@"{{
     ""methodInclude"": "".*OffsetExcludes.*"",
     ""methodBodyExcludes"": [
         {{
-            ""method"": ""System.Void Gaillard.SharpCover.Tests.TestTarget::OffsetExcludes()"",
+            ""method"": ""System.Void SharpCover.Tests.TestTarget::OffsetExcludes()"",
             ""offsets"": [{0}]
         }}
     ]
