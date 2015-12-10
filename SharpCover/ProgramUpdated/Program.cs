@@ -244,15 +244,16 @@ namespace SharpCover
                 File.Delete(hitsPath);
             File.Delete(KNOWNS_FILENAME);
 
-            var missRatio = (double)missCount / (double)knownIndex;
+            var missRatio = missCount / (double)knownIndex;
             var coverage = Math.Round((1.0 - missRatio) * 100.0, 2);
 
-            Console.WriteLine(string.Format("Overall coverage was {0}%.", coverage));
+            Console.WriteLine("Overall coverage was {0}%.", coverage);
+            Console.WriteLine("Number of missed lines:{0}.", missCount);
             //TODO: Currently all It gives is the general % for the entire assemblies that was run
             //Needs To summarize assemblies
-            File.WriteAllText("coverageSummary.txt","Coverage:"+coverage.ToString());
+            File.WriteAllText("coverageSummary.txt","Coverage:"+coverage);
 
-            return missCount == 0 ? 0 : 1;
+            return 0;
         }
 
         public static int Main(string[] args)

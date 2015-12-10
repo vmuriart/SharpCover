@@ -32,6 +32,25 @@ namespace SharpCover.Tests
             Assert.AreEqual(0, process.ExitCode);
         }
 
+
+        [Test]
+        public void All()
+        {
+            var config =
+                @"{""assemblies"": [""bin/Debug/TestTarget.exe""]}";
+
+            File.WriteAllText("testConfig.json", config);
+
+            Assert.AreEqual(0, Program.Main(new[] { "instrument", "testConfig.json" }));
+
+            Process.Start(testTargetExePath).WaitForExit();
+
+            Assert.AreEqual(0, Program.Main(new[] { "check" }));
+
+            Assert.IsTrue(File.ReadLines(Program.RESULTS_FILENAME).Any());
+        }
+
+
         [Test]
         public void NoBody()
         {
@@ -78,7 +97,7 @@ namespace SharpCover.Tests
 
             Process.Start(testTargetExePath).WaitForExit();
 
-            Assert.AreEqual(1, Program.Main(new []{ "check" }));
+            Assert.AreEqual(0, Program.Main(new []{ "check" }));
 
             var missCount = File.ReadLines(Program.RESULTS_FILENAME).Where(l => l.StartsWith(Program.MISS_PREFIX)).Count();
             var knownCount = File.ReadLines(Program.RESULTS_FILENAME).Count();
@@ -97,7 +116,7 @@ namespace SharpCover.Tests
 
             Process.Start(testTargetExePath).WaitForExit();
 
-            Assert.AreEqual(1, Program.Main(new []{ "check" }));
+            Assert.AreEqual(0, Program.Main(new []{ "check" }));
 
             var missCount = File.ReadLines(Program.RESULTS_FILENAME).Where(l => l.StartsWith(Program.MISS_PREFIX)).Count();
             var knownCount = File.ReadLines(Program.RESULTS_FILENAME).Count();

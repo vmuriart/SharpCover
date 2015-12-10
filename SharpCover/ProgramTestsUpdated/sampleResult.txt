@@ -1,0 +1,439 @@
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 0, Instruction: IL_0000: ldarg 
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 1, Instruction: IL_0001: ldfld System.EventHandler SharpCover.Tests.EventUsage::TheEvent
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 6, Instruction: IL_0006: stloc V_0
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 7, Instruction: IL_0007: ldloc V_0
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 8, Instruction: IL_0008: stloc V_1
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 9, Instruction: IL_0009: ldloc V_1
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 10, Instruction: IL_000a: ldarg value
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 11, Instruction: IL_000b: call System.Delegate System.Delegate::Combine(System.Delegate,System.Delegate)
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 16, Instruction: IL_0010: castclass System.EventHandler
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 21, Instruction: IL_0015: stloc V_2
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 22, Instruction: IL_0016: ldarg 
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 23, Instruction: IL_0017: ldflda System.EventHandler SharpCover.Tests.EventUsage::TheEvent
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 28, Instruction: IL_001c: ldloc V_2
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 29, Instruction: IL_001d: ldloc V_1
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 30, Instruction: IL_001e: call !!0 System.Threading.Interlocked::CompareExchange<System.EventHandler>(!!0&,!!0,!!0)
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 35, Instruction: IL_0023: stloc V_0
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 36, Instruction: IL_0024: ldloc V_0
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 37, Instruction: IL_0025: ldloc V_1
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 38, Instruction: IL_0026: ceq
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 40, Instruction: IL_0028: ldc.i4 0
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 41, Instruction: IL_0029: ceq
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 43, Instruction: IL_002b: stloc V_3
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 44, Instruction: IL_002c: ldloc V_3
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 45, Instruction: IL_002d: brtrue IL_0000
+Method: System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler), Line: -1, Offset: 47, Instruction: IL_002f: ret
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 0, Instruction: IL_0000: ldarg 
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 1, Instruction: IL_0001: ldfld System.EventHandler SharpCover.Tests.EventUsage::TheEvent
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 6, Instruction: IL_0006: stloc V_0
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 7, Instruction: IL_0007: ldloc V_0
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 8, Instruction: IL_0008: stloc V_1
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 9, Instruction: IL_0009: ldloc V_1
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 10, Instruction: IL_000a: ldarg value
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 11, Instruction: IL_000b: call System.Delegate System.Delegate::Remove(System.Delegate,System.Delegate)
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 16, Instruction: IL_0010: castclass System.EventHandler
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 21, Instruction: IL_0015: stloc V_2
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 22, Instruction: IL_0016: ldarg 
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 23, Instruction: IL_0017: ldflda System.EventHandler SharpCover.Tests.EventUsage::TheEvent
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 28, Instruction: IL_001c: ldloc V_2
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 29, Instruction: IL_001d: ldloc V_1
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 30, Instruction: IL_001e: call !!0 System.Threading.Interlocked::CompareExchange<System.EventHandler>(!!0&,!!0,!!0)
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 35, Instruction: IL_0023: stloc V_0
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 36, Instruction: IL_0024: ldloc V_0
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 37, Instruction: IL_0025: ldloc V_1
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 38, Instruction: IL_0026: ceq
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 40, Instruction: IL_0028: ldc.i4 0
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 41, Instruction: IL_0029: ceq
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 43, Instruction: IL_002b: stloc V_3
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 44, Instruction: IL_002c: ldloc V_3
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 45, Instruction: IL_002d: brtrue IL_0000
+Method: System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler), Line: -1, Offset: 47, Instruction: IL_002f: ret
+Method: System.Void SharpCover.Tests.EventUsage::EventMethod(System.Object,System.EventArgs), Line: -1, Offset: 0, Instruction: IL_0000: nop
+Method: System.Void SharpCover.Tests.EventUsage::EventMethod(System.Object,System.EventArgs), Line: -1, Offset: 1, Instruction: IL_0001: ldc.i4 0
+Method: System.Void SharpCover.Tests.EventUsage::EventMethod(System.Object,System.EventArgs), Line: -1, Offset: 2, Instruction: IL_0002: stloc V_0
+Method: System.Void SharpCover.Tests.EventUsage::EventMethod(System.Object,System.EventArgs), Line: -1, Offset: 3, Instruction: IL_0003: ldloc V_0
+Method: System.Void SharpCover.Tests.EventUsage::EventMethod(System.Object,System.EventArgs), Line: -1, Offset: 4, Instruction: IL_0004: ldc.i4 1
+Method: System.Void SharpCover.Tests.EventUsage::EventMethod(System.Object,System.EventArgs), Line: -1, Offset: 5, Instruction: IL_0005: add
+Method: System.Void SharpCover.Tests.EventUsage::EventMethod(System.Object,System.EventArgs), Line: -1, Offset: 6, Instruction: IL_0006: stloc V_0
+Method: System.Void SharpCover.Tests.EventUsage::EventMethod(System.Object,System.EventArgs), Line: -1, Offset: 7, Instruction: IL_0007: ret
+Method: System.Void SharpCover.Tests.EventUsage::RaiseEvent(), Line: -1, Offset: 0, Instruction: IL_0000: nop
+Method: System.Void SharpCover.Tests.EventUsage::RaiseEvent(), Line: -1, Offset: 1, Instruction: IL_0001: ldarg 
+Method: System.Void SharpCover.Tests.EventUsage::RaiseEvent(), Line: -1, Offset: 2, Instruction: IL_0002: ldfld System.EventHandler SharpCover.Tests.EventUsage::TheEvent
+Method: System.Void SharpCover.Tests.EventUsage::RaiseEvent(), Line: -1, Offset: 7, Instruction: IL_0007: ldnull
+Method: System.Void SharpCover.Tests.EventUsage::RaiseEvent(), Line: -1, Offset: 8, Instruction: IL_0008: ldnull
+Method: System.Void SharpCover.Tests.EventUsage::RaiseEvent(), Line: -1, Offset: 9, Instruction: IL_0009: callvirt System.Void System.EventHandler::Invoke(System.Object,System.EventArgs)
+Method: System.Void SharpCover.Tests.EventUsage::RaiseEvent(), Line: -1, Offset: 14, Instruction: IL_000e: nop
+Method: System.Void SharpCover.Tests.EventUsage::RaiseEvent(), Line: -1, Offset: 15, Instruction: IL_000f: ret
+Method: System.Void SharpCover.Tests.EventUsage::.ctor(), Line: -1, Offset: 0, Instruction: IL_0000: ldarg 
+Method: System.Void SharpCover.Tests.EventUsage::.ctor(), Line: -1, Offset: 1, Instruction: IL_0001: call System.Void System.Object::.ctor()
+Method: System.Void SharpCover.Tests.EventUsage::.ctor(), Line: -1, Offset: 6, Instruction: IL_0006: ret
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredIf(), Line: -1, Offset: 0, Instruction: IL_0000: nop
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredIf(), Line: -1, Offset: 1, Instruction: IL_0001: ldc.i4 0
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredIf(), Line: -1, Offset: 2, Instruction: IL_0002: stloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredIf(), Line: -1, Offset: 3, Instruction: IL_0003: ldloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredIf(), Line: -1, Offset: 4, Instruction: IL_0004: ldc.i4 0
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredIf(), Line: -1, Offset: 5, Instruction: IL_0005: ceq
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredIf(), Line: -1, Offset: 7, Instruction: IL_0007: ldc.i4 0
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredIf(), Line: -1, Offset: 8, Instruction: IL_0008: ceq
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredIf(), Line: -1, Offset: 10, Instruction: IL_000a: stloc V_1
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredIf(), Line: -1, Offset: 11, Instruction: IL_000b: ldloc V_1
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredIf(), Line: -1, Offset: 12, Instruction: IL_000c: brtrue IL_0014
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredIf(), Line: -1, Offset: 14, Instruction: IL_000e: ldloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredIf(), Line: -1, Offset: 15, Instruction: IL_000f: ldc.i4 1
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredIf(), Line: -1, Offset: 16, Instruction: IL_0010: add
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredIf(), Line: -1, Offset: 17, Instruction: IL_0011: stloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredIf(), Line: -1, Offset: 18, Instruction: IL_0012: br IL_0018
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::UncoveredIf(), Line: -1, Offset: 20, Instruction: IL_0014: ldloc V_0
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::UncoveredIf(), Line: -1, Offset: 21, Instruction: IL_0015: ldc.i4 1
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::UncoveredIf(), Line: -1, Offset: 22, Instruction: IL_0016: sub
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::UncoveredIf(), Line: -1, Offset: 23, Instruction: IL_0017: stloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredIf(), Line: -1, Offset: 24, Instruction: IL_0018: ret
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 0, Instruction: IL_0000: nop
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 1, Instruction: IL_0001: ldc.i4 0
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 2, Instruction: IL_0002: stloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 3, Instruction: IL_0003: ldloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 4, Instruction: IL_0004: ldc.i4 1
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 5, Instruction: IL_0005: add
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 6, Instruction: IL_0006: stloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 7, Instruction: IL_0007: nop
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 8, Instruction: IL_0008: ldloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 9, Instruction: IL_0009: ldc.i4 1
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 10, Instruction: IL_000a: ceq
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 12, Instruction: IL_000c: ldc.i4 0
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 13, Instruction: IL_000d: ceq
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 15, Instruction: IL_000f: stloc V_2
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 16, Instruction: IL_0010: ldloc V_2
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 17, Instruction: IL_0011: brtrue IL_0019
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 19, Instruction: IL_0013: newobj System.Void System.Exception::.ctor()
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 24, Instruction: IL_0018: throw
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 25, Instruction: IL_0019: nop
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 26, Instruction: IL_001a: leave IL_0027
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 28, Instruction: IL_001c: pop
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 29, Instruction: IL_001d: nop
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 30, Instruction: IL_001e: ldc.i4 1
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 31, Instruction: IL_001f: stloc V_1
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 32, Instruction: IL_0020: ldloc V_1
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 33, Instruction: IL_0021: ldc.i4 1
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 34, Instruction: IL_0022: sub
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 35, Instruction: IL_0023: stloc V_1
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 36, Instruction: IL_0024: nop
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 37, Instruction: IL_0025: leave IL_0027
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 39, Instruction: IL_0027: nop
+Method: System.Void SharpCover.Tests.TestTarget::UncoveredLeave(), Line: -1, Offset: 40, Instruction: IL_0028: ret
+Method: System.Void SharpCover.Tests.TestTarget::OffsetExcludes(), Line: -1, Offset: 0, Instruction: IL_0000: nop
+Method: System.Void SharpCover.Tests.TestTarget::OffsetExcludes(), Line: -1, Offset: 1, Instruction: IL_0001: ldc.i4 0
+Method: System.Void SharpCover.Tests.TestTarget::OffsetExcludes(), Line: -1, Offset: 2, Instruction: IL_0002: stloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::OffsetExcludes(), Line: -1, Offset: 3, Instruction: IL_0003: ldloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::OffsetExcludes(), Line: -1, Offset: 4, Instruction: IL_0004: ldc.i4 1
+Method: System.Void SharpCover.Tests.TestTarget::OffsetExcludes(), Line: -1, Offset: 5, Instruction: IL_0005: ceq
+Method: System.Void SharpCover.Tests.TestTarget::OffsetExcludes(), Line: -1, Offset: 7, Instruction: IL_0007: ldc.i4 0
+Method: System.Void SharpCover.Tests.TestTarget::OffsetExcludes(), Line: -1, Offset: 8, Instruction: IL_0008: ceq
+Method: System.Void SharpCover.Tests.TestTarget::OffsetExcludes(), Line: -1, Offset: 10, Instruction: IL_000a: stloc V_1
+Method: System.Void SharpCover.Tests.TestTarget::OffsetExcludes(), Line: -1, Offset: 11, Instruction: IL_000b: ldloc V_1
+Method: System.Void SharpCover.Tests.TestTarget::OffsetExcludes(), Line: -1, Offset: 12, Instruction: IL_000c: brtrue IL_0012
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::OffsetExcludes(), Line: -1, Offset: 14, Instruction: IL_000e: ldloc V_0
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::OffsetExcludes(), Line: -1, Offset: 15, Instruction: IL_000f: ldc.i4 1
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::OffsetExcludes(), Line: -1, Offset: 16, Instruction: IL_0010: add
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::OffsetExcludes(), Line: -1, Offset: 17, Instruction: IL_0011: stloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::OffsetExcludes(), Line: -1, Offset: 18, Instruction: IL_0012: ret
+Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 0, Instruction: IL_0000: nop
+Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 1, Instruction: IL_0001: ldc.i4 0
+Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 2, Instruction: IL_0002: stloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 3, Instruction: IL_0003: ldloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 4, Instruction: IL_0004: ldc.i4 1
+Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 5, Instruction: IL_0005: ceq
+Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 7, Instruction: IL_0007: ldc.i4 0
+Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 8, Instruction: IL_0008: ceq
+Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 10, Instruction: IL_000a: stloc V_2
+Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 11, Instruction: IL_000b: ldloc V_2
+Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 12, Instruction: IL_000c: brtrue IL_0012
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 14, Instruction: IL_000e: ldloc V_0
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 15, Instruction: IL_000f: ldc.i4 1
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 16, Instruction: IL_0010: add
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 17, Instruction: IL_0011: stloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 18, Instruction: IL_0012: nop
+Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 19, Instruction: IL_0013: ldloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 20, Instruction: IL_0014: ldc.i4 1
+Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 21, Instruction: IL_0015: sub
+Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 22, Instruction: IL_0016: stloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 23, Instruction: IL_0017: nop
+Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 24, Instruction: IL_0018: leave IL_0026
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 26, Instruction: IL_001a: pop
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 27, Instruction: IL_001b: nop
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 28, Instruction: IL_001c: ldc.i4 0
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 29, Instruction: IL_001d: stloc V_1
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 30, Instruction: IL_001e: ldloc V_1
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 31, Instruction: IL_001f: ldc.i4 0
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 32, Instruction: IL_0020: ceq
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 34, Instruction: IL_0022: stloc V_1
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 35, Instruction: IL_0023: nop
+MISS ! Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 36, Instruction: IL_0024: leave IL_0026
+Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 38, Instruction: IL_0026: nop
+Method: System.Void SharpCover.Tests.TestTarget::LineExcludes(), Line: -1, Offset: 39, Instruction: IL_0027: ret
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 0, Instruction: IL_0000: nop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 1, Instruction: IL_0001: ldc.i4 0
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 2, Instruction: IL_0002: stloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 3, Instruction: IL_0003: ldloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 4, Instruction: IL_0004: ldc.i4 1
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 5, Instruction: IL_0005: add
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 6, Instruction: IL_0006: stloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 7, Instruction: IL_0007: nop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 8, Instruction: IL_0008: ldloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 9, Instruction: IL_0009: ldc.i4 1
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 10, Instruction: IL_000a: sub
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 11, Instruction: IL_000b: stloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 12, Instruction: IL_000c: nop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 13, Instruction: IL_000d: leave IL_0016
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 15, Instruction: IL_000f: nop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 16, Instruction: IL_0010: ldloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 17, Instruction: IL_0011: ldc.i4 2
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 18, Instruction: IL_0012: add
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 19, Instruction: IL_0013: stloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 20, Instruction: IL_0014: nop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 21, Instruction: IL_0015: endfinally
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 22, Instruction: IL_0016: nop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 23, Instruction: IL_0017: br IL_0019
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 25, Instruction: IL_0019: ldc.i4 1234
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 30, Instruction: IL_001e: stloc V_1
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 31, Instruction: IL_001f: ldloc V_1
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 32, Instruction: IL_0020: ldc.i4 1
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 33, Instruction: IL_0021: add
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 34, Instruction: IL_0022: stloc V_1
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 35, Instruction: IL_0023: nop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 36, Instruction: IL_0024: ldc.i4 2
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 37, Instruction: IL_0025: newarr System.String
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 42, Instruction: IL_002a: stloc V_8
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 44, Instruction: IL_002c: ldloc V_8
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 46, Instruction: IL_002e: ldc.i4 0
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 47, Instruction: IL_002f: ldstr "boo"
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 52, Instruction: IL_0034: stelem.ref
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 53, Instruction: IL_0035: ldloc V_8
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 55, Instruction: IL_0037: ldc.i4 1
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 56, Instruction: IL_0038: ldstr "foo"
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 61, Instruction: IL_003d: stelem.ref
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 62, Instruction: IL_003e: ldloc V_8
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 64, Instruction: IL_0040: stloc V_9
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 66, Instruction: IL_0042: ldc.i4 0
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 67, Instruction: IL_0043: stloc V_10
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 69, Instruction: IL_0045: br IL_0061
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 71, Instruction: IL_0047: ldloc V_9
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 73, Instruction: IL_0049: ldloc V_10
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 75, Instruction: IL_004b: ldelem.ref
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 76, Instruction: IL_004c: stloc V_2
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 77, Instruction: IL_004d: nop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 78, Instruction: IL_004e: ldloc V_2
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 79, Instruction: IL_004f: ldstr "oo"
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 84, Instruction: IL_0054: callvirt System.Boolean System.String::EndsWith(System.String)
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 89, Instruction: IL_0059: pop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 90, Instruction: IL_005a: nop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 91, Instruction: IL_005b: ldloc V_10
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 93, Instruction: IL_005d: ldc.i4 1
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 94, Instruction: IL_005e: add
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 95, Instruction: IL_005f: stloc V_10
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 97, Instruction: IL_0061: ldloc V_10
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 99, Instruction: IL_0063: ldloc V_9
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 101, Instruction: IL_0065: ldlen
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 102, Instruction: IL_0066: conv.i4
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 103, Instruction: IL_0067: clt
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 105, Instruction: IL_0069: stloc V_11
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 107, Instruction: IL_006b: ldloc V_11
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 109, Instruction: IL_006d: brtrue IL_0000
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 111, Instruction: IL_006f: ldc.i4 0
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 112, Instruction: IL_0070: stloc V_3
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 113, Instruction: IL_0071: br IL_007b
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 115, Instruction: IL_0073: ldloc V_3
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 116, Instruction: IL_0074: ldc.i4 2
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 117, Instruction: IL_0075: add
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 118, Instruction: IL_0076: stloc V_3
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 119, Instruction: IL_0077: ldloc V_3
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 120, Instruction: IL_0078: ldc.i4 1
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 121, Instruction: IL_0079: add
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 122, Instruction: IL_007a: stloc V_3
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 123, Instruction: IL_007b: ldloc V_3
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 124, Instruction: IL_007c: ldc.i4 2
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 125, Instruction: IL_007d: clt
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 127, Instruction: IL_007f: stloc V_11
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 129, Instruction: IL_0081: ldloc V_11
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 131, Instruction: IL_0083: brtrue IL_0000
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 133, Instruction: IL_0085: nop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 134, Instruction: IL_0086: ldc.i4 2
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 135, Instruction: IL_0087: stloc V_3
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 136, Instruction: IL_0088: br IL_008e
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 138, Instruction: IL_008a: ldloc V_3
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 139, Instruction: IL_008b: ldc.i4 1
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 140, Instruction: IL_008c: sub
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 141, Instruction: IL_008d: stloc V_3
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 142, Instruction: IL_008e: ldloc V_3
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 143, Instruction: IL_008f: ldc.i4 0
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 144, Instruction: IL_0090: ceq
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 146, Instruction: IL_0092: ldc.i4 0
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 147, Instruction: IL_0093: ceq
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 149, Instruction: IL_0095: stloc V_11
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 151, Instruction: IL_0097: ldloc V_11
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 153, Instruction: IL_0099: brtrue IL_0000
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 155, Instruction: IL_009b: nop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 156, Instruction: IL_009c: ldc.i4 0
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 157, Instruction: IL_009d: stloc V_3
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 158, Instruction: IL_009e: br IL_00b9
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 160, Instruction: IL_00a0: nop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 161, Instruction: IL_00a1: ldloc V_3
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 162, Instruction: IL_00a2: ldc.i4 2
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 163, Instruction: IL_00a3: rem
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 164, Instruction: IL_00a4: brfalse IL_00a9
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 166, Instruction: IL_00a6: ldc.i4 0
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 167, Instruction: IL_00a7: br IL_00aa
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 169, Instruction: IL_00a9: ldc.i4 1
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 170, Instruction: IL_00aa: nop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 171, Instruction: IL_00ab: stloc V_4
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 173, Instruction: IL_00ad: ldloc V_4
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 175, Instruction: IL_00af: ldloc V_4
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 177, Instruction: IL_00b1: and
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 178, Instruction: IL_00b2: stloc V_4
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 180, Instruction: IL_00b4: nop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 181, Instruction: IL_00b5: ldloc V_3
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 182, Instruction: IL_00b6: ldc.i4 1
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 183, Instruction: IL_00b7: add
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 184, Instruction: IL_00b8: stloc V_3
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 185, Instruction: IL_00b9: ldloc V_3
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 186, Instruction: IL_00ba: ldc.i4 2
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 187, Instruction: IL_00bb: clt
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 189, Instruction: IL_00bd: stloc V_11
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 191, Instruction: IL_00bf: ldloc V_11
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 193, Instruction: IL_00c1: brtrue IL_0000
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 195, Instruction: IL_00c3: ldc.i4 0
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 196, Instruction: IL_00c4: stloc V_3
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 197, Instruction: IL_00c5: br IL_00e9
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 199, Instruction: IL_00c7: nop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 200, Instruction: IL_00c8: ldloc V_3
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 201, Instruction: IL_00c9: stloc V_12
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 203, Instruction: IL_00cb: ldloc V_12
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 205, Instruction: IL_00cd: switch IL_00e0,IL_00e2,IL_00e2
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 222, Instruction: IL_00de: br IL_00e4
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 224, Instruction: IL_00e0: br IL_00e4
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 226, Instruction: IL_00e2: br IL_00e4
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 228, Instruction: IL_00e4: nop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 229, Instruction: IL_00e5: ldloc V_3
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 230, Instruction: IL_00e6: ldc.i4 1
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 231, Instruction: IL_00e7: add
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 232, Instruction: IL_00e8: stloc V_3
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 233, Instruction: IL_00e9: ldloc V_3
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 234, Instruction: IL_00ea: ldc.i4 4
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 235, Instruction: IL_00eb: clt
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 237, Instruction: IL_00ed: stloc V_11
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 239, Instruction: IL_00ef: ldloc V_11
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 241, Instruction: IL_00f1: brtrue IL_0000
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 243, Instruction: IL_00f3: ldsfld System.Func`1<System.Boolean> SharpCover.Tests.TestTarget::CS$<>9__CachedAnonymousMethodDelegate1
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 248, Instruction: IL_00f8: brtrue IL_010d
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 250, Instruction: IL_00fa: ldnull
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 251, Instruction: IL_00fb: ldftn System.Boolean SharpCover.Tests.TestTarget::<Covered>b__0()
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 257, Instruction: IL_0101: newobj System.Void System.Func`1<System.Boolean>::.ctor(System.Object,System.IntPtr)
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 262, Instruction: IL_0106: stsfld System.Func`1<System.Boolean> SharpCover.Tests.TestTarget::CS$<>9__CachedAnonymousMethodDelegate1
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 267, Instruction: IL_010b: br IL_010d
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 269, Instruction: IL_010d: ldsfld System.Func`1<System.Boolean> SharpCover.Tests.TestTarget::CS$<>9__CachedAnonymousMethodDelegate1
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 274, Instruction: IL_0112: stloc V_5
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 276, Instruction: IL_0114: ldloc V_5
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 278, Instruction: IL_0116: callvirt !0 System.Func`1<System.Boolean>::Invoke()
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 283, Instruction: IL_011b: pop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 284, Instruction: IL_011c: nop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 285, Instruction: IL_011d: ldc.i4 0
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 286, Instruction: IL_011e: box System.Boolean
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 291, Instruction: IL_0123: stloc V_6
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 293, Instruction: IL_0125: ldloc V_6
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 295, Instruction: IL_0127: unbox.any System.Boolean
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 300, Instruction: IL_012c: box System.Boolean
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 305, Instruction: IL_0131: stloc V_6
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 307, Instruction: IL_0133: nop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 308, Instruction: IL_0134: newobj System.Void SharpCover.Tests.TestTarget/Disposable::.ctor()
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 313, Instruction: IL_0139: stloc V_7
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 315, Instruction: IL_013b: nop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 316, Instruction: IL_013c: ldc.i4 1
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 317, Instruction: IL_013d: stloc V_4
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 319, Instruction: IL_013f: ldloc V_4
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 321, Instruction: IL_0141: ldc.i4 0
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 322, Instruction: IL_0142: ceq
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 324, Instruction: IL_0144: stloc V_4
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 326, Instruction: IL_0146: nop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 327, Instruction: IL_0147: leave IL_015d
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 329, Instruction: IL_0149: ldloc V_7
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 331, Instruction: IL_014b: ldnull
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 332, Instruction: IL_014c: ceq
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 334, Instruction: IL_014e: stloc V_11
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 336, Instruction: IL_0150: ldloc V_11
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 338, Instruction: IL_0152: brtrue IL_015c
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 340, Instruction: IL_0154: ldloc V_7
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 342, Instruction: IL_0156: callvirt System.Void System.IDisposable::Dispose()
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 347, Instruction: IL_015b: nop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 348, Instruction: IL_015c: endfinally
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 349, Instruction: IL_015d: nop
+Method: System.Void SharpCover.Tests.TestTarget::Covered(), Line: -1, Offset: 350, Instruction: IL_015e: ret
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 0, Instruction: IL_0000: nop
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 1, Instruction: IL_0001: newobj System.Void SharpCover.Tests.TestTarget::.ctor()
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 6, Instruction: IL_0006: call System.Void SharpCover.Tests.TestTarget::Covered()
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 11, Instruction: IL_000b: nop
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 12, Instruction: IL_000c: newobj System.Void SharpCover.Tests.TestTarget/Nested::.ctor()
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 17, Instruction: IL_0011: call System.Void SharpCover.Tests.TestTarget/Nested::Covered()
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 22, Instruction: IL_0016: nop
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 23, Instruction: IL_0017: call System.Void SharpCover.Tests.TestTarget::UncoveredIf()
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 28, Instruction: IL_001c: nop
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 29, Instruction: IL_001d: call System.Void SharpCover.Tests.TestTarget::UncoveredLeave()
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 34, Instruction: IL_0022: nop
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 35, Instruction: IL_0023: call System.Void SharpCover.Tests.TestTarget::OffsetExcludes()
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 40, Instruction: IL_0028: nop
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 41, Instruction: IL_0029: call System.Void SharpCover.Tests.TestTarget::LineExcludes()
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 46, Instruction: IL_002e: nop
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 47, Instruction: IL_002f: newobj System.Void SharpCover.Tests.EventUsage::.ctor()
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 52, Instruction: IL_0034: stloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 53, Instruction: IL_0035: ldloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 54, Instruction: IL_0036: ldloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 55, Instruction: IL_0037: ldftn System.Void SharpCover.Tests.EventUsage::EventMethod(System.Object,System.EventArgs)
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 61, Instruction: IL_003d: newobj System.Void System.EventHandler::.ctor(System.Object,System.IntPtr)
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 66, Instruction: IL_0042: callvirt System.Void SharpCover.Tests.EventUsage::add_TheEvent(System.EventHandler)
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 71, Instruction: IL_0047: nop
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 72, Instruction: IL_0048: ldloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 73, Instruction: IL_0049: callvirt System.Void SharpCover.Tests.EventUsage::RaiseEvent()
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 78, Instruction: IL_004e: nop
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 79, Instruction: IL_004f: ldloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 80, Instruction: IL_0050: ldloc V_0
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 81, Instruction: IL_0051: ldftn System.Void SharpCover.Tests.EventUsage::EventMethod(System.Object,System.EventArgs)
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 87, Instruction: IL_0057: newobj System.Void System.EventHandler::.ctor(System.Object,System.IntPtr)
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 92, Instruction: IL_005c: callvirt System.Void SharpCover.Tests.EventUsage::remove_TheEvent(System.EventHandler)
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 97, Instruction: IL_0061: nop
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 98, Instruction: IL_0062: newobj System.Void SharpCover.Tests.TestTarget/Constrained::.ctor()
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 103, Instruction: IL_0067: ldc.i4 5
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 104, Instruction: IL_0068: call System.String SharpCover.Tests.TestTarget/Constrained::ToString<System.Int32>(T)
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 109, Instruction: IL_006d: pop
+Method: System.Void SharpCover.Tests.TestTarget::Main(System.String[]), Line: -1, Offset: 110, Instruction: IL_006e: ret
+Method: System.Void SharpCover.Tests.TestTarget::.ctor(), Line: -1, Offset: 0, Instruction: IL_0000: ldarg 
+Method: System.Void SharpCover.Tests.TestTarget::.ctor(), Line: -1, Offset: 1, Instruction: IL_0001: call System.Void System.Object::.ctor()
+Method: System.Void SharpCover.Tests.TestTarget::.ctor(), Line: -1, Offset: 6, Instruction: IL_0006: ret
+Method: System.Boolean SharpCover.Tests.TestTarget::<Covered>b__0(), Line: -1, Offset: 0, Instruction: IL_0000: ldc.i4 1
+Method: System.Boolean SharpCover.Tests.TestTarget::<Covered>b__0(), Line: -1, Offset: 1, Instruction: IL_0001: stloc V_0
+Method: System.Boolean SharpCover.Tests.TestTarget::<Covered>b__0(), Line: -1, Offset: 2, Instruction: IL_0002: br IL_0004
+Method: System.Boolean SharpCover.Tests.TestTarget::<Covered>b__0(), Line: -1, Offset: 4, Instruction: IL_0004: ldloc V_0
+Method: System.Boolean SharpCover.Tests.TestTarget::<Covered>b__0(), Line: -1, Offset: 5, Instruction: IL_0005: ret
+Method: System.Void SharpCover.Tests.TestTarget/Nested::Covered(), Line: -1, Offset: 0, Instruction: IL_0000: nop
+Method: System.Void SharpCover.Tests.TestTarget/Nested::Covered(), Line: -1, Offset: 1, Instruction: IL_0001: ldc.i4 0
+Method: System.Void SharpCover.Tests.TestTarget/Nested::Covered(), Line: -1, Offset: 2, Instruction: IL_0002: stloc V_0
+Method: System.Void SharpCover.Tests.TestTarget/Nested::Covered(), Line: -1, Offset: 3, Instruction: IL_0003: ldloc V_0
+Method: System.Void SharpCover.Tests.TestTarget/Nested::Covered(), Line: -1, Offset: 4, Instruction: IL_0004: ldc.i4 1
+Method: System.Void SharpCover.Tests.TestTarget/Nested::Covered(), Line: -1, Offset: 5, Instruction: IL_0005: add
+Method: System.Void SharpCover.Tests.TestTarget/Nested::Covered(), Line: -1, Offset: 6, Instruction: IL_0006: stloc V_0
+Method: System.Void SharpCover.Tests.TestTarget/Nested::Covered(), Line: -1, Offset: 7, Instruction: IL_0007: ret
+Method: System.Void SharpCover.Tests.TestTarget/Nested::.ctor(), Line: -1, Offset: 0, Instruction: IL_0000: ldarg 
+Method: System.Void SharpCover.Tests.TestTarget/Nested::.ctor(), Line: -1, Offset: 1, Instruction: IL_0001: call System.Void System.Object::.ctor()
+Method: System.Void SharpCover.Tests.TestTarget/Nested::.ctor(), Line: -1, Offset: 6, Instruction: IL_0006: ret
+Method: System.Void SharpCover.Tests.TestTarget/Disposable::Dispose(), Line: -1, Offset: 0, Instruction: IL_0000: nop
+Method: System.Void SharpCover.Tests.TestTarget/Disposable::Dispose(), Line: -1, Offset: 1, Instruction: IL_0001: ret
+Method: System.Void SharpCover.Tests.TestTarget/Disposable::.ctor(), Line: -1, Offset: 0, Instruction: IL_0000: ldarg 
+Method: System.Void SharpCover.Tests.TestTarget/Disposable::.ctor(), Line: -1, Offset: 1, Instruction: IL_0001: call System.Void System.Object::.ctor()
+Method: System.Void SharpCover.Tests.TestTarget/Disposable::.ctor(), Line: -1, Offset: 6, Instruction: IL_0006: ret
+Method: System.String SharpCover.Tests.TestTarget/Constrained::ToString(T), Line: -1, Offset: 0, Instruction: IL_0000: nop
+Method: System.String SharpCover.Tests.TestTarget/Constrained::ToString(T), Line: -1, Offset: 1, Instruction: IL_0001: ldarga value
+Method: System.String SharpCover.Tests.TestTarget/Constrained::ToString(T), Line: -1, Offset: 3, Instruction: IL_0003: constrained. T
+Method: System.String SharpCover.Tests.TestTarget/Constrained::ToString(T), Line: -1, Offset: 14, Instruction: IL_000e: stloc V_0
+Method: System.String SharpCover.Tests.TestTarget/Constrained::ToString(T), Line: -1, Offset: 15, Instruction: IL_000f: br IL_0011
+Method: System.String SharpCover.Tests.TestTarget/Constrained::ToString(T), Line: -1, Offset: 17, Instruction: IL_0011: ldloc V_0
+Method: System.String SharpCover.Tests.TestTarget/Constrained::ToString(T), Line: -1, Offset: 18, Instruction: IL_0012: ret
+Method: System.Void SharpCover.Tests.TestTarget/Constrained::.ctor(), Line: -1, Offset: 0, Instruction: IL_0000: ldarg 
+Method: System.Void SharpCover.Tests.TestTarget/Constrained::.ctor(), Line: -1, Offset: 1, Instruction: IL_0001: call System.Void System.Object::.ctor()
+Method: System.Void SharpCover.Tests.TestTarget/Constrained::.ctor(), Line: -1, Offset: 6, Instruction: IL_0006: ret
