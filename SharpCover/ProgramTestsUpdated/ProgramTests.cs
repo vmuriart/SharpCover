@@ -99,7 +99,7 @@ namespace SharpCover.Tests
 
             Assert.AreEqual(0, Program.Main(new []{ "check" }));
 
-            var missCount = File.ReadLines(Program.RESULTS_FILENAME).Where(l => l.StartsWith(Program.MISS_PREFIX)).Count();
+            var missCount = File.ReadLines(Program.RESULTS_FILENAME).Count(l => l.StartsWith(Program.MISS_PREFIX));
             var knownCount = File.ReadLines(Program.RESULTS_FILENAME).Count();
 
             Assert.IsTrue(knownCount > 0);

@@ -64,6 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CoverageResultsSummarizer.cs" />
+    <Compile Include="CoverageSummary.cs" />
+    <Compile Include="ProcessedLine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

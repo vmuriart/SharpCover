@@ -66,6 +66,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="CoverageResultsSumarizerTest.cs" />
     <Compile Include="ProgramTests.cs" />
     <None Include="TestTarget.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -87,7 +88,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="sampleResult.txt" />
+    <Content Include="sampleResult.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
