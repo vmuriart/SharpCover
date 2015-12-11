@@ -48,7 +48,23 @@ namespace ProgramUpdated
 
         public CoverageSummary GetResults()
         {
+            if(MethodsNames.Count < 0)
+                throw new AggregateException("Need to load the class first");
             CoverageSummary cs = new CoverageSummary();
+            foreach (var methodSignature in MethodsNames.Select(s => s.MethodSignature).Distinct())
+            {
+                var misses = MethodsNames.Count(s => s.MethodSignature == methodSignature && s.Missing);
+                var total = MethodsNames.Count();
+                var nonmisses = total - misses;
+                var coverage = (nonmisses/(double)total)*100;
+                cs.ReportedMethods.Add(new CodeCoverageLine()
+                {
+                    Covered = coverage,
+                    MethodSignature = methodSignature
+                });
+            }
+
+            cs.Covered = ((MethodsNames.Count -MethodsNames.Count(s => s.Missing))/(double)MethodsNames.Count)*100;
             return cs;
         }
 

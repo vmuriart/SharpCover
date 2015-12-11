@@ -26,7 +26,8 @@ namespace SharpCover.Tests
         public void LoadAResultFile()
         {
             _objectInTest.Fill(Tstresult);
-             
+            var summary = _objectInTest.GetResults();
+            Assert.IsTrue(summary.Covered > 92);
             Assert.AreEqual(439,_objectInTest.MethodsNames.Count);
         }
     }

@@ -7,7 +7,9 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using ProgramUpdated;
 
 //Note This is a modified repo to be able to create a bamboo task and compile run in visual studio 2015
 // original work by https://github.com/gaillard all rights belong to him
@@ -251,8 +253,10 @@ namespace SharpCover
             Console.WriteLine("Number of missed lines:{0}.", missCount);
             //TODO: Currently all It gives is the general % for the entire assemblies that was run
             //Needs To summarize assemblies
-            File.WriteAllText("coverageSummary.txt","Coverage:"+coverage);
 
+            CoverageResultsSummarizer crs = new CoverageResultsSummarizer();
+            crs.Fill(RESULTS_FILENAME);
+            File.WriteAllText("coverageSummary.txt", JsonConvert.SerializeObject(crs.GetResults()));
             return 0;
         }
 
