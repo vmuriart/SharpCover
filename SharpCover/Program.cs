@@ -15,9 +15,9 @@ namespace Gaillard.SharpCover
 {
     public static class Program
     {
-        public const string RESULTS_FILENAME = "coverageResults.txt", MISS_PREFIX = "MISS ! ", HITS_FILENAME_PREFIX = "coverageHits";
+        public const string RESULTS_FILENAME = "coverageResults.txt", MISS_PREFIX = "!", HITS_FILENAME_PREFIX = "coverageHits";
         private const string KNOWNS_FILENAME = "coverageKnowns";
-        private static readonly MethodInfo countMethodInfo = typeof(Counter).GetMethod("Count");
+        private static readonly MethodInfo countMethodInfo = typeof (Counter).GetMethod ("Count");
 
         //immutable
         private sealed class InstrumentConfig
@@ -27,47 +27,50 @@ namespace Gaillard.SharpCover
                                    TypeExclude,
                                    MethodInclude,
                                    MethodExclude,
-                                   HitsPathPrefix = Path.Combine(Directory.GetCurrentDirectory(), HITS_FILENAME_PREFIX);
-            private readonly IDictionary<string, IEnumerable<int>> methodOffsetExcludes = new Dictionary<string, IEnumerable<int>>();
-            private readonly IDictionary<string, IEnumerable<string>> methodLineExcludes = new Dictionary<string, IEnumerable<string>>();
+                                   HitsPathPrefix = Path.Combine (Directory.GetCurrentDirectory (), HITS_FILENAME_PREFIX);
+            private readonly IDictionary<string, IEnumerable<int>> methodOffsetExcludes = new Dictionary<string, IEnumerable<int>> ();
+            private readonly IDictionary<string, IEnumerable<string>> methodLineExcludes = new Dictionary<string, IEnumerable<string>> ();
 
-            public InstrumentConfig(string json)
+            public InstrumentConfig (string json)
             {
-                if (File.Exists(json))
-                    json = File.ReadAllText(json);
+                if (File.Exists (json))
+                    json = File.ReadAllText (json);
 
-                var config = JObject.Parse(json);
+                var config = JObject.Parse (json);
 
-                AssemblyPaths = config.SelectToken("assemblies", true).Values<string>();
-                TypeInclude = ((string)config.SelectToken("typeInclude")) ?? ".*";
-                TypeExclude = ((string)config.SelectToken("typeExclude")) ?? ".^";//any char and THEN start of line matches nothing
-                MethodInclude = ((string)config.SelectToken("methodInclude")) ?? ".*";
-                MethodExclude = ((string)config.SelectToken("methodExclude")) ?? ".^";//any char and THEN start of line matches nothing
+                AssemblyPaths = config.SelectToken ("assemblies", true).Values<string> ();
+                TypeInclude = ((string)config.SelectToken ("typeInclude")) ?? ".*";
+                TypeExclude = ((string)config.SelectToken ("typeExclude")) ?? ".^";//any char and THEN start of line matches nothing
+                MethodInclude = ((string)config.SelectToken ("methodInclude")) ?? ".*";
+                MethodExclude = ((string)config.SelectToken ("methodExclude")) ?? ".^";//any char and THEN start of line matches nothing
 
 
-                foreach (var methodBodyExclude in config.SelectToken("methodBodyExcludes") ?? new JArray()) {
-                    var method = (string)methodBodyExclude.SelectToken("method", true);
-                    var offsets = (methodBodyExclude.SelectToken("offsets") ?? new JArray()).Values<int>();
-                    var lines = (methodBodyExclude.SelectToken("lines") ?? new JArray()).Values<string>();
-                    methodOffsetExcludes.Add(method, offsets);
-                    methodLineExcludes.Add(method, lines);
+                foreach (var methodBodyExclude in config.SelectToken ("methodBodyExcludes") ?? new JArray ()) {
+                    var method = (string)methodBodyExclude.SelectToken ("method", true);
+                    var offsets = (methodBodyExclude.SelectToken ("offsets") ?? new JArray ()).Values<int> ();
+                    var lines = (methodBodyExclude.SelectToken ("lines") ?? new JArray ()).Values<string> ();
+                    methodOffsetExcludes.Add (method, offsets);
+                    methodLineExcludes.Add (method, lines);
                 }
             }
 
-            public bool HasOffset(string method, int offset)
+            public bool HasOffset (string method, int offset)
             {
                 IEnumerable<int> offsets;
-                return methodOffsetExcludes.TryGetValue(method, out offsets) && offsets.Contains(offset);
+                return methodOffsetExcludes.TryGetValue (method, out offsets) && offsets.Contains (offset);
             }
 
-            public bool HasLine(string method, string line)
+            public bool HasLine (string method, string line)
             {
                 IEnumerable<string> lines;
-                return methodLineExcludes.TryGetValue(method, out lines) && lines.Select(l => l.Trim()).Contains(line.Trim());
+                return methodLineExcludes.TryGetValue (method, out lines) && lines.Select (l => l.Trim ()).Contains (line.Trim ());
             }
         }
 
-        private static void Instrument(Instruction instruction,
+        private static void Instrument (
+                                      AssemblyDefinition assembly,
+                                      TypeDefinition type,
+                                       Instruction instruction,
                                        MethodReference countReference,
                                        MethodDefinition method,
                                        ILProcessor worker,
@@ -81,33 +84,45 @@ namespace Gaillard.SharpCover
             if (instruction.Previous != null && instruction.Previous.OpCode.OpCodeType == OpCodeType.Prefix)
                 return;
 
-            if (config.HasOffset(method.FullName, instruction.Offset))
+            if (config.HasOffset (method.FullName, instruction.Offset))
                 return;
 
-            if (lastLine != null && config.HasLine(method.FullName, lastLine)) {
+            if (lastLine != null && config.HasLine (method.FullName, lastLine)) {
                 return;
             }
 
-            var lineNum = -1;
-            if (instruction.SequencePoint != null)
-                lineNum = instruction.SequencePoint.StartLine;
+            var lineNumStart = -1;
+            var lineNumEnd = -1;
+            if (instruction.SequencePoint != null) {
+                lineNumStart = instruction.SequencePoint.StartLine;
+                lineNumEnd = instruction.SequencePoint.EndLine;
+            }
 
-            var line = string.Join(", ",
-                                   "Method: " + method.FullName,
-                                   "Line: " + lineNum,
-                                   "Offset: " + instruction.Offset,
-                                   "Instruction: " + instruction);
+            var parentTypeRef = type;
+            while (parentTypeRef.DeclaringType != null)
+                parentTypeRef = parentTypeRef.DeclaringType;
 
-            writer.WriteLine(line);
+            var line = string.Join ("\t",
+                                   assembly.Name,  //0
+                                   parentTypeRef.FullName,//1
+                                   method.FullName, //2 
+                                   lineNumStart, //3
+                                   lineNumEnd, //4 
+                                   instruction.Offset, //5
+                                   instruction.ToString ().Replace ("\n", " "), //6
+                                   instruction.SequencePoint?.Document.Url); //7
 
-            var pathParamLoadInstruction = worker.Create(OpCodes.Ldstr, config.HitsPathPrefix);
-            var lineParamLoadInstruction = worker.Create(OpCodes.Ldc_I4, instrumentIndex);
-            var registerInstruction = worker.Create(OpCodes.Call, countReference);
+   
+            writer.WriteLine (line);
+
+            var pathParamLoadInstruction = worker.Create (OpCodes.Ldstr, config.HitsPathPrefix);
+            var lineParamLoadInstruction = worker.Create (OpCodes.Ldc_I4, instrumentIndex);
+            var registerInstruction = worker.Create (OpCodes.Call, countReference);
 
             //inserting method before instruction  because after will not happen after a method Ret instruction
-            worker.InsertBefore(instruction, pathParamLoadInstruction);
-            worker.InsertAfter(pathParamLoadInstruction, lineParamLoadInstruction);
-            worker.InsertAfter(lineParamLoadInstruction, registerInstruction);
+            worker.InsertBefore (instruction, pathParamLoadInstruction);
+            worker.InsertAfter (pathParamLoadInstruction, lineParamLoadInstruction);
+            worker.InsertAfter (lineParamLoadInstruction, registerInstruction);
 
             ++instrumentIndex;
 
@@ -135,48 +150,51 @@ namespace Gaillard.SharpCover
                     continue;
                 }
 
-                if (!(operand is Instruction[]))
+                if (!(operand is Instruction []))
                     continue;
 
-                var operands = (Instruction[])operand;
+                var operands = (Instruction [])operand;
                 for (var i = 0; i < operands.Length; ++i) {
-                    if (operands[i] == instruction)
-                        operands[i] = pathParamLoadInstruction;
+                    if (operands [i] == instruction)
+                        operands [i] = pathParamLoadInstruction;
                 }
             }
         }
 
-        private static void Instrument(
+        private static void Instrument (
+            AssemblyDefinition assembly,
+            TypeDefinition type,
             MethodDefinition method,
             MethodReference countReference,
             InstrumentConfig config,
             TextWriter writer,
             ref int instrumentIndex)
         {
-            if (!Regex.IsMatch(method.FullName, config.MethodInclude) || Regex.IsMatch(method.FullName, config.MethodExclude))
+            if (!Regex.IsMatch (method.FullName, config.MethodInclude) || Regex.IsMatch (method.FullName, config.MethodExclude))
                 return;
 
-            var worker = method.Body.GetILProcessor();
+            var worker = method.Body.GetILProcessor ();
 
-            method.Body.SimplifyMacros();
+            method.Body.SimplifyMacros ();
 
             string lastLine = null;//the sequence point for instructions that dont have one is the last set (if one exists)
             //need to copy instruction list since we modify using worker inserts
-            foreach (var instruction in new List<Instruction>(method.Body.Instructions).OrderBy(i => i.Offset)) {
+            foreach (var instruction in new List<Instruction> (method.Body.Instructions).OrderBy (i => i.Offset)) {
                 var sequencePoint = instruction.SequencePoint;
                 if (sequencePoint != null) {
-                    var line = File.ReadLines(sequencePoint.Document.Url).ElementAtOrDefault(sequencePoint.StartLine - 1);
+                    var line = File.ReadLines (sequencePoint.Document.Url).ElementAtOrDefault (sequencePoint.StartLine - 1);
                     if (line != null)
                         lastLine = line;
                 }
 
-                Instrument(instruction, countReference, method, worker, lastLine, config, writer, ref instrumentIndex);
+                Instrument (assembly, type, instruction, countReference, method, worker, lastLine, config, writer, ref instrumentIndex);
             }
 
-            method.Body.OptimizeMacros();
+            method.Body.OptimizeMacros ();
         }
 
-        private static void Instrument(
+        private static void Instrument (
+            AssemblyDefinition assembly,
             TypeDefinition type,
             MethodReference countReference,
             InstrumentConfig config,
@@ -186,52 +204,52 @@ namespace Gaillard.SharpCover
             if (type.FullName == "<Module>")
                 return;
 
-            if (!Regex.IsMatch(type.FullName, config.TypeInclude) || Regex.IsMatch(type.FullName, config.TypeExclude))
+            if (!Regex.IsMatch (type.FullName, config.TypeInclude) || Regex.IsMatch (type.FullName, config.TypeExclude))
                 return;
 
-            foreach (var method in type.Methods.Where(m => m.HasBody))
-                Instrument(method, countReference, config, writer, ref instrumentIndex);
+            foreach (var method in type.Methods.Where (m => m.HasBody))
+                Instrument (assembly, type, method, countReference, config, writer, ref instrumentIndex);
         }
 
-        private static void Instrument(string assemblyPath, InstrumentConfig config, TextWriter writer, ref int instrumentIndex)
+        private static void Instrument (string assemblyPath, InstrumentConfig config, TextWriter writer, ref int instrumentIndex)
         {
             //Mono.Cecil.[Mdb|Pdb].dll must be alongsize this exe to include sequence points from ReadSymbols
-            var assembly = AssemblyDefinition.ReadAssembly(assemblyPath, new ReaderParameters { ReadSymbols = true });
-            var countReference = assembly.MainModule.Import(countMethodInfo);
+            var assembly = AssemblyDefinition.ReadAssembly (assemblyPath, new ReaderParameters { ReadSymbols = true });
+            var countReference = assembly.MainModule.Import (countMethodInfo);
 
-            foreach (var type in assembly.MainModule.GetTypes())//.Types doesnt include nested types
-                Instrument(type, countReference, config, writer, ref instrumentIndex);
+            foreach (var type in assembly.MainModule.GetTypes ())//.Types doesnt include nested types
+                Instrument (assembly, type, countReference, config, writer, ref instrumentIndex);
 
-            assembly.Write(assemblyPath, new WriterParameters { WriteSymbols = true });
+            assembly.Write (assemblyPath, new WriterParameters { WriteSymbols = true });
 
-            var counterPath = typeof(Counter).Assembly.Location;
+            var counterPath = typeof (Counter).Assembly.Location;
 
-            if (!File.Exists(Path.Combine(Path.GetDirectoryName(assemblyPath), Path.GetFileName(counterPath))))
-              File.Copy(counterPath, Path.Combine(Path.GetDirectoryName(assemblyPath), Path.GetFileName(counterPath)), false);
+            if (!File.Exists (Path.Combine (Path.GetDirectoryName (assemblyPath), Path.GetFileName (counterPath))))
+                File.Copy (counterPath, Path.Combine (Path.GetDirectoryName (assemblyPath), Path.GetFileName (counterPath)), false);
         }
 
-        private static int Check()
+        private static int Check ()
         {
-            var currentDirectory = Directory.GetCurrentDirectory();
+            var currentDirectory = Directory.GetCurrentDirectory ();
 
-            var hits = new HashSet<int>();
-            foreach (var hitsPath in Directory.GetFiles(currentDirectory, HITS_FILENAME_PREFIX + "*")) {
-                using (var hitsStream = File.OpenRead(hitsPath))
-                using (var hitsReader = new BinaryReader(hitsStream)) {
+            var hits = new HashSet<int> ();
+            foreach (var hitsPath in Directory.GetFiles (currentDirectory, HITS_FILENAME_PREFIX + "*")) {
+                using (var hitsStream = File.OpenRead (hitsPath))
+                using (var hitsReader = new BinaryReader (hitsStream)) {
                     while (hitsStream.Position < hitsStream.Length)
-                        hits.Add (hitsReader.ReadInt32());
+                        hits.Add (hitsReader.ReadInt32 ());
                 }
             }
 
             var missCount = 0;
             var knownIndex = 0;
 
-            using (var resultsWriter = new StreamWriter(RESULTS_FILENAME)) {//overwrites
-                foreach (var knownLine in File.ReadLines(KNOWNS_FILENAME)) {
-                    if (hits.Contains(knownIndex))
-                        resultsWriter.WriteLine(knownLine);
+            using (var resultsWriter = new StreamWriter (RESULTS_FILENAME)) {//overwrites
+                foreach (var knownLine in File.ReadLines (KNOWNS_FILENAME)) {
+                    if (hits.Contains (knownIndex))
+                        resultsWriter.WriteLine (knownLine);
                     else {
-                        resultsWriter.WriteLine(MISS_PREFIX + knownLine);
+                        resultsWriter.WriteLine (MISS_PREFIX + knownLine);
                         ++missCount;
                     }
 
@@ -239,44 +257,44 @@ namespace Gaillard.SharpCover
                 }
             }
 
-            //cleanup to leave only results file
-            foreach (var hitsPath in Directory.GetFiles(currentDirectory, HITS_FILENAME_PREFIX + "*"))
-                File.Delete(hitsPath);
-            File.Delete(KNOWNS_FILENAME);
+            cleanup to leave only results file
+            foreach (var hitsPath in Directory.GetFiles (currentDirectory, HITS_FILENAME_PREFIX + "*"))
+                File.Delete (hitsPath);
+            File.Delete (KNOWNS_FILENAME);
 
             var missRatio = (double)missCount / (double)knownIndex;
-            var coverage = Math.Round((1.0 - missRatio) * 100.0, 2);
+            var coverage = Math.Round ((1.0 - missRatio) * 100.0, 2);
 
-            Console.WriteLine(string.Format("Overall coverage was {0}%.", coverage));
+            Console.WriteLine (string.Format ("Overall coverage was {0}%.", coverage));
 
             return missCount == 0 ? 0 : 1;
         }
 
-        public static int Main(string[] args)
+        public static int Main (string [] args)
         {
             try {
-                if (args[0] == "instrument") {
-                    var config = new InstrumentConfig(args[1]);
+                if (args [0] == "instrument") {
+                    var config = new InstrumentConfig (args [1]);
 
                     //delete existing hit files generatig during program exercising
-                    foreach (var hitsPath in Directory.GetFiles(Directory.GetCurrentDirectory(), HITS_FILENAME_PREFIX + "*"))
-                        File.Delete(hitsPath);
+                    foreach (var hitsPath in Directory.GetFiles (Directory.GetCurrentDirectory (), HITS_FILENAME_PREFIX + "*"))
+                        File.Delete (hitsPath);
 
                     //used to track the line index of the instrumented instruction in the knowns file
                     var instrumentIndex = 0;
 
-                    using (var writer = new StreamWriter(KNOWNS_FILENAME)) {//overwrites
+                    using (var writer = new StreamWriter (KNOWNS_FILENAME)) {//overwrites
                         foreach (var assemblyPath in config.AssemblyPaths)
-                            Instrument(assemblyPath, config, writer, ref instrumentIndex);
+                            Instrument (assemblyPath, config, writer, ref instrumentIndex);
                     }
 
                     return 0;
-                } else if (args[0] == "check")
-                    return Check();
+                } else if (args [0] == "check")
+                    return Check ();
 
-                Console.Error.WriteLine("need 'instrument' or 'check' command");
+                Console.Error.WriteLine ("need 'instrument' or 'check' command");
             } catch (Exception e) {
-                Console.Error.WriteLine(e);
+                Console.Error.WriteLine (e);
             }
 
             return 2;
