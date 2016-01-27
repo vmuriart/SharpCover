@@ -3,3 +3,5 @@ obj/
 TestResult.xml
 *~
 coverageResults.txt
+packages
+SharpCover.userprefs

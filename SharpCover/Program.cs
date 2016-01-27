@@ -9,7 +9,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json.Linq;
 
-[assembly: AssemblyVersion("1.0.2.*")]
+
 
 namespace Gaillard.SharpCover
 {
@@ -206,7 +206,8 @@ namespace Gaillard.SharpCover
 
             var counterPath = typeof(Counter).Assembly.Location;
 
-            File.Copy(counterPath, Path.Combine(Path.GetDirectoryName(assemblyPath), Path.GetFileName(counterPath)), true);
+            if (!File.Exists(Path.Combine(Path.GetDirectoryName(assemblyPath), Path.GetFileName(counterPath))))
+              File.Copy(counterPath, Path.Combine(Path.GetDirectoryName(assemblyPath), Path.GetFileName(counterPath)), false);
         }
 
         private static int Check()
