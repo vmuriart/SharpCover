@@ -257,7 +257,7 @@ namespace Gaillard.SharpCover
                 }
             }
 
-            cleanup to leave only results file
+            //cleanup to leave only results file
             foreach (var hitsPath in Directory.GetFiles (currentDirectory, HITS_FILENAME_PREFIX + "*"))
                 File.Delete (hitsPath);
             File.Delete (KNOWNS_FILENAME);
