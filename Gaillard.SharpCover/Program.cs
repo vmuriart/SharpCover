@@ -16,6 +16,7 @@ namespace Gaillard.SharpCover
 {
     public static class Program
     {
+        public const string EXCLUDE_FROM_CODE_COVERAGE_NAME = "ExcludeFromCodeCoverageAttribute";
 		public const string RESULTS_FILENAME = "coverageResults.txt";
 		public const string RESULTS_XML_FILENAME = "coverage.xml";
 		public const string MISS_PREFIX = "MISS|";
@@ -165,8 +166,12 @@ namespace Gaillard.SharpCover
             TextWriter writer,
             ref int instrumentIndex)
         {
+            if (method.CustomAttributes.Any(x => x.AttributeType.Name == EXCLUDE_FROM_CODE_COVERAGE_NAME))
+                return;
+            
             if (!Regex.IsMatch(method.FullName, config.MethodInclude) || Regex.IsMatch(method.FullName, config.MethodExclude))
                 return;
+
 
             var worker = method.Body.GetILProcessor();
 
@@ -197,6 +202,14 @@ namespace Gaillard.SharpCover
             ref int instrumentIndex)
         {
             if (type.FullName == "<Module>")
+                return;
+
+            if(type.FullName.Contains("DefaultRouter"))
+            {
+                int stop = 1;
+            }
+
+            if (type.CustomAttributes.Any(x => x.AttributeType.Name == EXCLUDE_FROM_CODE_COVERAGE_NAME))
                 return;
 
             if (!Regex.IsMatch(type.FullName, config.TypeInclude) || Regex.IsMatch(type.FullName, config.TypeExclude))
