@@ -1,0 +1,37 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Counter", "Gaillard.SharpCover\Counter.csproj", "{703F64AD-3296-4AF5-87F0-DD489C8CF1AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Program", "Gaillard.SharpCover\Program.csproj", "{C87C31F7-05F8-49A2-AC73-ABFB0620FBD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgramTests", "Gaillard.SharpCover.Tests\ProgramTests.csproj", "{1CD19C94-5A5C-4165-B0E4-97BB040E2D8E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestTarget", "Gaillard.SharpCover.Tests\TestTarget.csproj", "{1412D3FA-6B07-4FD9-A860-6FA50CE9ECF2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{703F64AD-3296-4AF5-87F0-DD489C8CF1AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{703F64AD-3296-4AF5-87F0-DD489C8CF1AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{703F64AD-3296-4AF5-87F0-DD489C8CF1AA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{703F64AD-3296-4AF5-87F0-DD489C8CF1AA}.Debug|x86.Build.0 = Debug|Any CPU
+		{C87C31F7-05F8-49A2-AC73-ABFB0620FBD6}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{C87C31F7-05F8-49A2-AC73-ABFB0620FBD6}.Debug|x86.ActiveCfg = Debug|x86
+		{C87C31F7-05F8-49A2-AC73-ABFB0620FBD6}.Debug|x86.Build.0 = Debug|x86
+		{1CD19C94-5A5C-4165-B0E4-97BB040E2D8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CD19C94-5A5C-4165-B0E4-97BB040E2D8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CD19C94-5A5C-4165-B0E4-97BB040E2D8E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1CD19C94-5A5C-4165-B0E4-97BB040E2D8E}.Debug|x86.Build.0 = Debug|Any CPU
+		{1412D3FA-6B07-4FD9-A860-6FA50CE9ECF2}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{1412D3FA-6B07-4FD9-A860-6FA50CE9ECF2}.Debug|x86.ActiveCfg = Debug|x86
+		{1412D3FA-6B07-4FD9-A860-6FA50CE9ECF2}.Debug|x86.Build.0 = Debug|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
